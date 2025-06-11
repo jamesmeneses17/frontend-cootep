@@ -1,0 +1,39 @@
+<aside class="w-64 bg-gray-800 text-white flex flex-col py-6 h-full">
+  <!-- Logo -->
+  <div class="mb-10 flex justify-center">
+    <img src="assets/cootepp.png" alt="Logo" class="h-16" />
+  </div>
+
+  <!-- Navegación -->
+  <nav class="flex-1 w-full space-y-2 px-4 text-sm">
+    <a routerLink="/empleado/informacion-personal"
+       routerLinkActive="bg-green-700"
+       class="flex items-center gap-2 px-4 py-2 rounded font-semibold hover:bg-green-600 transition">
+      <i class="fas fa-user-circle"></i> Mis Datos
+    </a>
+
+    <a routerLink="/empleado/solicitar-certificado"
+       routerLinkActive="bg-green-700"
+       class="flex items-center gap-2 px-4 py-2 rounded hover:bg-green-600 transition">
+      <i class="fas fa-file-alt"></i> Solicitar Certificado
+    </a>
+
+    <a routerLink="/empleado/historial-laboral"
+       routerLinkActive="bg-green-700"
+       class="flex items-center gap-2 px-4 py-2 rounded hover:bg-green-600 transition">
+      <i class="fas fa-briefcase"></i> Historial Laboral
+    </a>
+
+    <a routerLink="/empleado/historial-certificados"
+       routerLinkActive="bg-green-700"
+       class="flex items-center gap-2 px-4 py-2 rounded hover:bg-green-600 transition">
+      <i class="fas fa-folder-open"></i> Historial de Certificados
+    </a>
+
+    <a routerLink="/empleado/ayuda"
+       routerLinkActive="bg-green-700"
+       class="flex items-center gap-2 px-4 py-2 rounded hover:bg-green-600 transition">
+      <i class="fas fa-question-circle"></i> Ayuda
+    </a>
+  </nav>
+</aside>
