@@ -1,39 +1,74 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { Employee } from '../interfaces/employee.interface'; // ✅ interfaz en inglés
+import { Employee } from '../interfaces/employee.interface'; 
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmployeeService {
+  private apiUrl = 'http://localhost:3000'; 
+
   constructor(private http: HttpClient) { }
 
   getProfile() {
-    return this.http.get('http://localhost:3000/employees/profile');
+    return this.http.get(`${this.apiUrl}/employees/profile`);
   }
 
   getEmploymentHistory(): Observable<any[]> {
-    return this.http.get<any[]>('http://localhost:3000/employment-history');
+    return this.http.get<any[]>(`${this.apiUrl}/employment-history`);
   }
 
   getAllEmploymentHistory(): Observable<any[]> {
-    return this.http.get<any[]>('http://localhost:3000/employment-history/all');
+    return this.http.get<any[]>(`${this.apiUrl}/employment-history/all`);
   }
 
   getHistoryDateRange() {
     return this.http.get<{ startDates: string[]; endDates: string[] }>(
-      'http://localhost:3000/employment-history/range'
+      `${this.apiUrl}/employment-history/range`
     );
   }
 
   getAllEmployees(): Observable<Employee[]> {
-    return this.http.get<Employee[]>('http://localhost:3000/employees');
+    return this.http.get<Employee[]>(`${this.apiUrl}/employees`);
   }
 
   getAvailableStartDates(): Observable<string[]> {
-    return this.http.get<{ startDates: string[] }>('http://localhost:3000/employment-history/range')
-      .pipe(map(res => res.startDates));
+    return this.http
+      .get<{ startDates: string[] }>(`${this.apiUrl}/employment-history/range`)
+      .pipe(map((res) => res.startDates));
   }
+
+  getEmployees(page: number, limit: number) {
+    return this.http.get<any>(`${this.apiUrl}/employees?page=${page}&limit=${limit}`);
+  }
+  getEmployeeDetails(id: number) {
+    return this.http.get<any>(`${this.apiUrl}/employees/${id}/details`);
+  }
+  updateEmployee(id: number, data: any) {
+    return this.http.patch(`http://localhost:3000/employees/${id}`, data);
+  }
+  getPositions() {
+    return this.http.get<any[]>(`${this.apiUrl}/positions`);
+  }
+
+  getContractTypes() {
+    return this.http.get<any[]>(`${this.apiUrl}/contract-type`);
+  }
+
+  getRoles() {
+    return this.http.get<any[]>(`${this.apiUrl}/roles`);
+  }
+
+  getStatuses() {
+    return this.http.get<any[]>(`${this.apiUrl}/status`);
+  }
+
+  updateEmploymentHistory(id: number, data: any) {
+    return this.http.patch(`${this.apiUrl}/employment-history/${id}`, data);
+  }
+
+
+
 
 }
