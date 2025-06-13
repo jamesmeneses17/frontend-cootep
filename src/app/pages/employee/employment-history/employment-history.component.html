@@ -1,0 +1,115 @@
+<div class="flex min-h-screen bg-gray-100 overflow-hidden">
+  <div
+    class="fixed inset-0 z-40 flex md:static md:inset-auto md:translate-x-0 transition-transform duration-300 ease-in-out"
+    [class.-translate-x-full]="!sidebarOpen"
+  >
+    <app-sidebar></app-sidebar>
+    <!-- Fondo oscuro para cerrar sidebar en móviles -->
+    <div
+      class="fixed inset-0 bg-black bg-opacity-50 md:hidden"
+      (click)="sidebarOpen = false"
+    ></div>
+  </div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <!-- HEADER -->
+    <app-header
+      [profile]="profile"
+      [sidebarOpen]="sidebarOpen"
+      [toggleSidebar]="toggleSidebar.bind(this)"
+    ></app-header>
+
+    <!-- MAIN -->
+    <main class="flex-1 overflow-y-auto px-4 py-8">
+      <section class="bg-white rounded-lg shadow max-w-6xl mx-auto px-6 py-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6 uppercase">Historial Laboral</h2>
+
+        <!-- Estado de carga -->
+        <div *ngIf="loading" class="text-center text-gray-600">
+          Cargando historial...
+        </div>
+
+        <!-- Error -->
+        <div *ngIf="error" class="text-red-600 text-center">
+          {{ error }}
+        </div>
+
+        <!-- Filtro por rango de fechas -->
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+          <label class="text-sm text-gray-700 font-semibold">
+            Desde:
+            <select
+              [(ngModel)]="filterStartDate"
+              class="border p-2 rounded w-full uppercase"
+            >
+              <option value="">TODOS</option>
+              <option *ngFor="let date of startDateOptions" [value]="date">
+                {{ date | date: 'longDate' }}
+              </option>
+            </select>
+          </label>
+
+          <label class="text-sm text-gray-700 font-semibold">
+            Hasta:
+            <select
+              [(ngModel)]="filterEndDate"
+              class="border p-2 rounded w-full uppercase"
+            >
+              <option value="">TODOS</option>
+              <option *ngFor="let date of endDateOptions" [value]="date">
+                {{ date | date: 'longDate' }}
+              </option>
+            </select>
+          </label>
+        </div>
+
+        <!-- Sin resultados tras filtrar -->
+        <div
+          *ngIf="!loading && filteredHistory.length === 0"
+          class="text-center text-gray-600"
+        >
+          No hay registros en el rango seleccionado.
+        </div>
+
+        <!-- Listado -->
+        <div *ngIf="!loading && filteredHistory.length > 0" class="space-y-6">
+          <div
+            *ngFor="let item of filteredHistory"
+            class="bg-gray-50 border border-gray-200 rounded-lg p-4 shadow-sm"
+          >
+            <div
+              class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4 text-sm text-gray-700"
+            >
+              <div>
+                <span class="font-semibold">Cargo:</span>
+                {{ item.position.title }}
+              </div>
+              <div>
+                <span class="font-semibold">Tipo de Contrato:</span>
+                {{ item.contractType.name }}
+              </div>
+              <div>
+                <span class="font-semibold">Salario:</span>
+                {{ item.salary | number: '1.0-0' }}
+              </div>
+              <div>
+                <span class="font-semibold">Desde:</span>
+                {{ item.startDate | date: 'longDate' }}
+              </div>
+              <div>
+                <span class="font-semibold">Hasta:</span>
+                {{
+                  item.endDate ? (item.endDate | date: 'longDate') : 'ACTUAL'
+                }}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <app-footer></app-footer>
+  </div>
+</div>

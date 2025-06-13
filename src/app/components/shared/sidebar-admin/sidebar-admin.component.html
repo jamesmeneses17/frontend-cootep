@@ -1,0 +1,73 @@
+<aside class="w-64 bg-[#779a6b] text-white flex flex-col py-6 h-full">
+  <!-- Logo -->
+  <div class="mb-10 flex justify-center">
+    <img src="assets/cootepp.png" alt="Logo" class="h-16" />
+  </div>
+
+  <!-- Navegación del Administrador -->
+  <nav class="flex-1 w-full space-y-2 px-4 text-sm">
+    <a
+      routerLink="/admin/employees"
+      routerLinkActive="bg-green-700"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="flex items-center gap-2 px-4 py-2 rounded font-semibold hover:bg-green-600 transition"
+    >
+      <i class="fas fa-users"></i> Empleados
+    </a>
+
+    <a
+      routerLink="/admin/employment-history"
+      routerLinkActive="bg-green-700"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="flex items-center gap-2 px-4 py-2 rounded font-semibold hover:bg-green-600 transition"
+    >
+      <i class="fas fa-briefcase"></i> Historial Laboral
+    </a>
+
+    <a
+      routerLink="/admin/positions"
+      routerLinkActive="bg-green-700"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="flex items-center gap-2 px-4 py-2 rounded font-semibold hover:bg-green-600 transition"
+    >
+      <i class="fas fa-sitemap"></i> Cargos y Funciones
+    </a>
+
+    <a
+      routerLink="/admin/statistics"
+      routerLinkActive="bg-green-700"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="flex items-center gap-2 px-4 py-2 rounded font-semibold hover:bg-green-600 transition"
+    >
+      <i class="fas fa-chart-bar"></i> Estadísticas
+    </a>
+
+    <a
+      routerLink="/admin/admin-users"
+      routerLinkActive="bg-green-700"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="flex items-center gap-2 px-4 py-2 rounded font-semibold hover:bg-green-600 transition"
+    >
+      <i class="fas fa-user-shield"></i> Usuarios Admin
+    </a>
+
+    <a
+      routerLink="/admin/action-logs"
+      routerLinkActive="bg-green-700"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="flex items-center gap-2 px-4 py-2 rounded font-semibold hover:bg-green-600 transition"
+    >
+      <i class="fas fa-history"></i> Acciones del Sistema
+    </a>
+
+    <a
+      routerLink="/admin/import"
+      routerLinkActive="bg-green-700"
+      [routerLinkActiveOptions]="{ exact: true }"
+      class="flex items-center gap-2 px-4 py-2 rounded font-semibold hover:bg-green-600 transition"
+    >
+      <i class="fas fa-file-upload"></i> Importar desde Excel
+    </a>
+
+  </nav>
+</aside>

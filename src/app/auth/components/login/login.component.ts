@@ -26,19 +26,27 @@ export class LoginComponent {
 
     this.authService.login(credentials).subscribe({
       next: (response) => {
-
         const data = response as { access_token: string; user_id?: string };
-
         console.log('Usuario autenticado', data);
 
-        // ✅ Guarda tokens
         localStorage.setItem('access_token', data.access_token);
         if (data.user_id) {
           localStorage.setItem('user_id', data.user_id);
         }
 
-        // 🔁 Redirige al perfil
-        this.router.navigate(['/empleado/perfil']);
+        // Decodificar el token para extraer el rol
+        const payload = JSON.parse(atob(data.access_token.split('.')[1]));
+        const role = payload.role;
+
+        // Redirigir según el rol
+        if (role === 'admin') {
+          this.router.navigate(['/admin']);
+        } else if (role === 'empleado') {
+          this.router.navigate(['/empleado/perfil']);
+        } else {
+          // fallback si no coincide con ningún rol conocido
+          this.router.navigate(['/']);
+        }
       },
       error: (err) => {
         console.error('Error al iniciar sesión', err);

@@ -1,0 +1,58 @@
+<section class="bg-white rounded-lg shadow p-6">
+  <h2 class="text-xl font-semibold text-gray-800 mb-4">Listado de Empleados</h2>
+
+  <div class="overflow-x-auto">
+    <table class="min-w-full divide-y divide-gray-200 text-sm">
+      <thead class="bg-gray-100 text-gray-700 font-semibold">
+        <tr>
+          <th class="px-4 py-2 text-left">Nombre</th>
+          <th class="px-4 py-2 text-left">Cédula</th>
+          <th class="px-4 py-2 text-left">Correo</th>
+          <th class="px-4 py-2 text-left">Cargo</th>
+          <th class="px-4 py-2 text-left">Fecha Ingreso</th>
+          <th class="px-4 py-2 text-left">Estado</th>
+          <th class="px-4 py-2 text-left">Acciones</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-gray-100 text-gray-800">
+        <tr *ngFor="let employee of employees">
+          <td class="px-4 py-2">
+            {{ employee.first_name }} {{ employee.last_name }}
+          </td>
+          <td class="px-4 py-2">{{ employee.national_id }}</td>
+          <td class="px-4 py-2">{{ employee.user.email }}</td>
+
+          <!-- Cargo desde historial -->
+          <td class="px-4 py-2">
+            {{ getLatestEmployment(employee)?.position?.title || '-' }}
+          </td>
+
+          <!-- Fecha de ingreso -->
+          <td class="px-4 py-2">
+           {{ getLatestEmployment(employee)?.startDate | date : "mediumDate" }}
+
+          </td>
+
+          <!-- Estado con colores -->
+          <td class="px-4 py-2">
+            <span
+              class="px-2 py-1 rounded-full text-xs font-semibold"
+              [ngClass]="{
+                'bg-green-100 text-green-700': employee.status.name === 'active',
+                'bg-yellow-100 text-yellow-700': employee.status.name === 'vacation',
+                'bg-red-100 text-red-700': employee.status.name === 'inactive'
+              }"
+            >
+              {{ employee.status.name || 'No status' }}
+            </span>
+          </td>
+
+          <td class="px-4 py-2 flex gap-2">
+            <button class="text-blue-600 hover:underline">View</button>
+            <button class="text-green-600 hover:underline">Edit</button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
