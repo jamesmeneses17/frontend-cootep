@@ -11,12 +11,12 @@ import { FooterComponent } from '../../components/shared/footer/footer.component
   imports: [
     CommonModule,
     RouterOutlet,
-    HeaderAdminComponent, // ✅ Actualizado aquí
+    HeaderAdminComponent, 
     SidebarAdminComponent,
     FooterComponent
   ],
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css'] // ← corregido "styleUrl" → "styleUrls"
+  styleUrls: ['./admin.component.css'] 
 })
 export class AdminComponent {
   sidebarOpen = true;

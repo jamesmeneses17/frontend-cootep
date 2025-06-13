@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { Employee } from '../interfaces/employee.interface'; // ✅ interfaz en inglés
 
 @Injectable({
@@ -30,4 +30,10 @@ export class EmployeeService {
   getAllEmployees(): Observable<Employee[]> {
     return this.http.get<Employee[]>('http://localhost:3000/employees');
   }
+
+  getAvailableStartDates(): Observable<string[]> {
+    return this.http.get<{ startDates: string[] }>('http://localhost:3000/employment-history/range')
+      .pipe(map(res => res.startDates));
+  }
+
 }
