@@ -35,7 +35,7 @@ export class EmployeeDetailDialogComponent {
     this.employeeService.getStatuses().subscribe(res => this.statuses = res);
   }
 
- onSubmit() {
+onSubmit() {
   const employeePayload = {
     first_name: this.data.first_name,
     last_name: this.data.last_name,
@@ -46,29 +46,33 @@ export class EmployeeDetailDialogComponent {
     statusId: this.data.status.id,
   };
 
-  const historyPayload = {
-    salary: this.data.latestEmployment.salary,
-    positionId: this.data.latestEmployment.position.id,
-    contractTypeId: this.data.latestEmployment.contractType.id,
-  };
-
-  // Actualizar empleado
   this.employeeService.updateEmployee(this.data.id, employeePayload).subscribe({
     next: () => {
-      // Actualizar historial
-      this.employeeService.updateEmploymentHistory(
-        this.data.latestEmployment.id,
-        historyPayload
-      ).subscribe({
-        next: () => {
-          alert('Empleado y historial actualizado con éxito');
-          this.dialogRef.close(true);
-        },
-        error: (err) => {
-          console.error('Error al actualizar historial:', err);
-          alert('Error al guardar historial');
-        }
-      });
+      // Solo actualiza historial si existe
+      if (this.data.latestEmployment && this.data.latestEmployment.id) {
+        const historyPayload = {
+          salary: this.data.latestEmployment.salary || 0,
+          positionId: this.data.latestEmployment.position?.id || null,
+          contractTypeId: this.data.latestEmployment.contractType?.id || null,
+        };
+
+        this.employeeService.updateEmploymentHistory(
+          this.data.latestEmployment.id,
+          historyPayload
+        ).subscribe({
+          next: () => {
+            alert('Empleado y historial actualizado con éxito');
+            this.dialogRef.close(true);
+          },
+          error: (err) => {
+            console.error('Error al actualizar historial:', err);
+            alert('Error al guardar historial');
+          }
+        });
+      } else {
+        alert('Empleado actualizado con éxito');
+        this.dialogRef.close(true);
+      }
     },
     error: (err) => {
       console.error('Error al actualizar empleado:', err);
@@ -76,6 +80,7 @@ export class EmployeeDetailDialogComponent {
     }
   });
 }
+
 
 
 

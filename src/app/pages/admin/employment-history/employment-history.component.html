@@ -1,0 +1,184 @@
+<section class="bg-white p-6 rounded shadow">
+  <div class="flex items-center justify-between mb-4">
+    <h2 class="text-xl font-semibold text-gray-800">
+      Historial Laboral de Todos los Empleados
+    </h2>
+    <button
+      class="bg-blue-600 hover:bg-blue-700 text-white font-semibold px-4 py-2 rounded"
+      (click)="showCreateForm = true"
+    >
+      + Nuevo Historial
+    </button>
+  </div>
+
+  <!-- Filtros -->
+  <!-- FILTROS -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4 text-sm">
+    <!-- Filtro por Cédula -->
+    <div>
+      <label class="block font-medium mb-1 text-gray-700"
+        >Buscar por cédula</label
+      >
+      <input
+        type="text"
+        [(ngModel)]="filters.nationalId"
+        (ngModelChange)="applyFilters()"
+        placeholder="Ej: 123456789"
+        class="w-full border rounded px-3 py-2 focus:outline-none focus:ring"
+      />
+    </div>
+
+    <!-- Filtro por Cargo -->
+    <div>
+      <label class="block font-medium mb-1 text-gray-700">Cargo</label>
+      <select
+        [(ngModel)]="filters.positionId"
+        (change)="applyFilters()"
+        class="w-full border rounded px-3 py-2"
+      >
+        <option value="">Todos</option>
+        <option *ngFor="let pos of positions" [value]="pos.id">
+          {{ pos.title }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Filtro por Tipo de Contrato -->
+    <div>
+      <label class="block font-medium mb-1 text-gray-700"
+        >Tipo de contrato</label
+      >
+      <select
+        [(ngModel)]="filters.contractTypeId"
+        (change)="applyFilters()"
+        class="w-full border rounded px-3 py-2"
+      >
+        <option value="">Todos</option>
+        <option *ngFor="let type of contracts" [value]="type.id">
+          {{ type.name }}
+        </option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Tabla de historiales -->
+  <table class="w-full text-sm text-left border border-gray-200">
+    <thead class="bg-gray-100 text-gray-700">
+      <tr>
+        <th class="px-4 py-2 border-b">Cédula</th>
+        <th class="px-4 py-2 border-b">Cargo</th>
+        <th class="px-4 py-2 border-b">Tipo de Contrato</th>
+        <th class="px-4 py-2 border-b">Inicio del Cargo</th>
+        <th class="px-4 py-2 border-b">Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let h of paginatedHistories" class="hover:bg-gray-50">
+        <td class="px-4 py-2 border-b">{{ h.employee?.national_id }}</td>
+        <td class="px-4 py-2 border-b">{{ h.position?.title || "-" }}</td>
+        <td class="px-4 py-2 border-b">{{ h.contractType?.name || "-" }}</td>
+        <td class="px-4 py-2 border-b">{{ formatDate(h.startDate) }}</td>
+        <!-- ... Dentro de la tabla de historial laboral ... -->
+        <td class="px-4 py-2 border-b space-x-2">
+          <button
+            class="text-blue-600 hover:underline"
+            (click)="viewHistory(h)"
+          >
+            View
+          </button>
+          <button
+            class="text-green-600 hover:underline"
+            (click)="editHistory(h)"
+          >
+            Edit
+          </button>
+          <button
+            class="bg-red-600 hover:bg-red-700 text-white px-2 py-1 rounded-full text-xs font-bold"
+            (click)="deleteHistory(h.id)"
+            title="Eliminar historial"
+          >
+            ✕
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <!-- Paginador -->
+  <mat-paginator
+    [length]="histories.length"
+    [pageSize]="pageSize"
+    [pageSizeOptions]="pageSizeOptions"
+    (page)="onPageChange($event)"
+    class="mt-4"
+    aria-label="Paginador de historial laboral"
+  ></mat-paginator>
+
+  <div *ngIf="histories.length === 0" class="text-center text-gray-500 mt-6">
+    No se encontraron historiales laborales registrados.
+  </div>
+
+  <!-- Modal de crear historial -->
+  <div
+    *ngIf="showCreateForm"
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+  >
+    <div
+      class="bg-white rounded-lg shadow-lg w-full max-w-xl max-h-[90vh] overflow-y-auto p-6 relative"
+    >
+      <h3 class="text-lg font-semibold mb-4">
+        Agregar nuevo historial laboral
+      </h3>
+      <app-employment-history-create-dialog />
+      <button
+        class="absolute top-2 right-2 text-gray-500 hover:text-black"
+        (click)="showCreateForm = false"
+      >
+        ✕
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal de ver historial -->
+  <div
+    *ngIf="selectedHistory && !editing"
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+  >
+    <div>
+      <app-employment-history-view
+        [history]="selectedHistory"
+        [onClose]="closeModal"
+      ></app-employment-history-view>
+      <button
+        class="absolute top-2 right-2 text-gray-500 hover:text-black"
+        (click)="closeModal()"
+      >
+        ✕
+      </button>
+    </div>
+  </div>
+
+  <!-- Modal de editar historial -->
+  <div
+    *ngIf="editing"
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+  >
+    <div
+      class="bg-white rounded-lg shadow-lg w-full max-w-2xl mx-4 max-h-[90vh] overflow-y-auto p-6 relative"
+    >
+      <h3 class="text-lg font-semibold mb-4">Editar historial laboral</h3>
+      <app-edit-dialog
+        [data]="selectedHistory"
+        [positions]="positions"
+        [contracts]="contracts"
+        (onUpdated)="handleUpdate()"
+      />
+      <button
+        class="absolute top-2 right-2 text-gray-500 hover:text-black"
+        (click)="closeModal()"
+      >
+        ✕
+      </button>
+    </div>
+  </div>
+</section>

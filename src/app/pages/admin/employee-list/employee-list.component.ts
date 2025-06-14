@@ -6,6 +6,7 @@ import { Employee, EmploymentHistory } from '../../../interfaces/employee.interf
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { EmployeeDetailDialogComponent } from '../employee-detail-dialog/employee-detail-dialog.component';
+import { EmployeeCreateDialogComponent } from '../employee-create-dialog/employee-create-dialog.component';
 
 @Component({
   selector: 'app-employee-list',
@@ -20,8 +21,8 @@ export class EmployeeListComponent implements OnInit {
   // Filtros
   searchTerm = '';
   selectedStatus = 'all';
-  dateStart: string = '';
-  dateEnd: string = '';
+  dateStart = '';
+  dateEnd = '';
   startDateOptions: string[] = [];
 
   // Paginación
@@ -35,9 +36,8 @@ export class EmployeeListComponent implements OnInit {
     private dialog: MatDialog
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.loadEmployees();
-
     this.employeeService.getHistoryDateRange().subscribe({
       next: (data) => {
         this.startDateOptions = data.startDates;
@@ -46,20 +46,10 @@ export class EmployeeListComponent implements OnInit {
     });
   }
 
-  // Obtener historial más reciente
-  getLatestEmployment(employee: Employee): EmploymentHistory | null {
-    if (!employee.employment_history || employee.employment_history.length === 0) {
-      return null;
-    }
-    return employee.employment_history.sort(
-      (a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
-    )[0];
-  }
-
-  // Paginación
-  loadEmployees() {
+  loadEmployees(): void {
     this.employeeService.getEmployees(this.currentPage, this.pageSize).subscribe({
       next: (res) => {
+        console.log('Empleados cargados:', res); // ← útil para depuración
         this.employees = res.data;
         this.totalPages = res.totalPages;
         this.totalItems = res.total;
@@ -68,62 +58,51 @@ export class EmployeeListComponent implements OnInit {
     });
   }
 
-  onPageSizeChange() {
-    this.currentPage = 1;
-    this.loadEmployees();
+  getLatestEmployment(employee: Employee): EmploymentHistory | null {
+    if (!employee.employment_history || employee.employment_history.length === 0) return null;
+    return employee.employment_history.sort(
+      (a, b) => new Date(b.startDate).getTime() - new Date(a.startDate).getTime()
+    )[0];
   }
 
-  prevPage() {
-    if (this.currentPage > 1) {
-      this.currentPage--;
-      this.loadEmployees();
-    }
-  }
-
-  nextPage() {
-    if (this.currentPage < this.totalPages) {
-      this.currentPage++;
-      this.loadEmployees();
-    }
-  }
-
-  onMatPageChange(event: PageEvent) {
+  onMatPageChange(event: PageEvent): void {
     this.pageSize = event.pageSize;
     this.currentPage = event.pageIndex + 1;
     this.loadEmployees();
   }
 
-  // Abrir modal en modo View o Edit
-  openEmployeeDialog(id: number, mode: 'view' | 'edit' = 'view') {
+  openEmployeeDialog(id: number, mode: 'view' | 'edit' = 'view'): void {
     this.employeeService.getEmployeeDetails(id).subscribe({
       next: (data) => {
         const dialogRef = this.dialog.open(EmployeeDetailDialogComponent, {
           width: '600px',
-          data: {
-            ...data,
-            mode, // ← aquí pasamos el modo al diálogo
-          },
+          data: { ...data, mode }
         });
 
         dialogRef.afterClosed().subscribe((result) => {
-          if (result){
-            this.loadEmployees();
-          }
+          if (result) this.loadEmployees();
         });
       },
       error: (err) => console.error('Error al obtener detalles del empleado:', err),
     });
   }
 
+  openCreateDialog(): void {
+    const dialogRef = this.dialog.open(EmployeeCreateDialogComponent, {
+      width: '600px'
+    });
 
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) this.loadEmployees();
+    });
+  }
 
-
-  // Filtros en frontend (opcional si más adelante lo haces por backend)
   get filteredEmployees() {
     return this.employees.filter(emp => {
-      const fullText = `${emp.first_name} ${emp.last_name} ${emp.national_id} ${emp.user.email}`.toLowerCase();
+      const email = emp.user?.email || '';
+      const fullText = `${emp.first_name} ${emp.last_name} ${emp.national_id} ${email}`.toLowerCase();
       const matchesSearch = fullText.includes(this.searchTerm.toLowerCase());
-      const matchesStatus = this.selectedStatus === 'all' || emp.status.name === this.selectedStatus;
+      const matchesStatus = this.selectedStatus === 'all' || emp.status?.name === this.selectedStatus;
 
       const ingreso = new Date(this.getLatestEmployment(emp)?.startDate || '');
       const matchesDate =
@@ -133,4 +112,5 @@ export class EmployeeListComponent implements OnInit {
       return matchesSearch && matchesStatus && matchesDate;
     });
   }
+
 }

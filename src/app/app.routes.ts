@@ -75,11 +75,15 @@ export const routes: Routes = [
           import('./pages/admin/employee-view/employee-view.component').then(m => m.EmployeeViewComponent),
       },
       {
+        path: 'employment-history',
+        loadComponent: () =>
+          import('./pages/admin/employment-history/employment-history.component').then(m => m.EmploymentHistoryComponent),
+      },
+      {
         path: '',
         redirectTo: 'employees',
         pathMatch: 'full',
       }
     ]
-
   }
 ];

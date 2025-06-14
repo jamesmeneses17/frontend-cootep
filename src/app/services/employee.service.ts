@@ -1,13 +1,13 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
-import { Employee } from '../interfaces/employee.interface'; 
+import { Employee } from '../interfaces/employee.interface';
 
 @Injectable({
   providedIn: 'root',
 })
 export class EmployeeService {
-  private apiUrl = 'http://localhost:3000'; 
+  private apiUrl = 'http://localhost:3000';
 
   constructor(private http: HttpClient) { }
 
@@ -42,12 +42,19 @@ export class EmployeeService {
   getEmployees(page: number, limit: number) {
     return this.http.get<any>(`${this.apiUrl}/employees?page=${page}&limit=${limit}`);
   }
+
   getEmployeeDetails(id: number) {
     return this.http.get<any>(`${this.apiUrl}/employees/${id}/details`);
   }
+
   updateEmployee(id: number, data: any) {
-    return this.http.patch(`http://localhost:3000/employees/${id}`, data);
+    return this.http.patch(`${this.apiUrl}/employees/${id}`, data);
   }
+
+  createEmployee(data: any) {
+    return this.http.post(`${this.apiUrl}/employees`, data);
+  }
+
   getPositions() {
     return this.http.get<any[]>(`${this.apiUrl}/positions`);
   }
@@ -64,11 +71,14 @@ export class EmployeeService {
     return this.http.get<any[]>(`${this.apiUrl}/status`);
   }
 
+
   updateEmploymentHistory(id: number, data: any) {
     return this.http.patch(`${this.apiUrl}/employment-history/${id}`, data);
   }
 
-
+  createFullEmployee(data: any) {
+    return this.http.post('http://localhost:3000/employees/full', data);
+  }
 
 
 }

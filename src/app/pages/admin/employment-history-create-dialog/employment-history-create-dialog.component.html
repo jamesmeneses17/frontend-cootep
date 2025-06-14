@@ -1,0 +1,93 @@
+<section class="bg-white rounded-lg shadow p-6">
+ 
+
+  <form
+    [formGroup]="form"
+    (ngSubmit)="onSubmit()"
+    class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm"
+  >
+    <!-- Empleado -->
+    <div>
+      <label class="block text-gray-600 font-medium mb-1">Empleado</label>
+      <select formControlName="employeeId" class="border rounded px-2 py-1 w-full" required>
+        <option value="" disabled selected>Seleccione un empleado</option>
+        <option *ngFor="let emp of employees" [value]="emp.id">
+          {{ emp.first_name }} {{ emp.lastName }} - {{ emp.national_id }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Cargo -->
+    <div>
+      <label class="block text-gray-600 font-medium mb-1">Cargo</label>
+      <select formControlName="positionId" class="border rounded px-2 py-1 w-full" required>
+        <option value="" disabled selected>Seleccione un cargo</option>
+        <option *ngFor="let p of positions" [value]="p.id">
+          {{ p.title }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Tipo de contrato -->
+    <div>
+      <label class="block text-gray-600 font-medium mb-1">Tipo de contrato</label>
+      <select formControlName="contractTypeId" class="border rounded px-2 py-1 w-full" required>
+        <option value="" disabled selected>Seleccione un contrato</option>
+        <option *ngFor="let c of contracts" [value]="c.id">
+          {{ c.name }}
+        </option>
+      </select>
+    </div>
+
+    <!-- Salario -->
+    <div>
+      <label class="block text-gray-600 font-medium mb-1">Salario</label>
+      <input
+        type="number"
+        formControlName="salary"
+        class="border rounded px-2 py-1 w-full"
+        placeholder="Ej: 2500000"
+        required
+      />
+    </div>
+
+    <!-- Fecha de inicio -->
+    <div>
+      <label class="block text-gray-600 font-medium mb-1">Fecha de inicio</label>
+      <input
+        type="date"
+        formControlName="startDate"
+        class="border rounded px-2 py-1 w-full"
+        required
+      />
+    </div>
+
+    <!-- Fecha de terminación -->
+    <div>
+      <label class="block text-gray-600 font-medium mb-1">Fecha de terminación (opcional)</label>
+      <input
+        type="date"
+        formControlName="endDate"
+        class="border rounded px-2 py-1 w-full"
+      />
+    </div>
+
+    <!-- BOTONES -->
+    <div class="col-span-full flex justify-end gap-2 mt-2">
+      <button
+        type="button"
+        class="bg-gray-200 px-4 py-2 rounded"
+        (click)="onCancel()"
+      >
+        Cancelar
+      </button>
+      <button
+        type="submit"
+        class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+        [disabled]="form.invalid"
+      >
+        Guardar
+      </button>
+    </div>
+  </form>
+</section>
