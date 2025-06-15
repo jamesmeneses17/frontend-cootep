@@ -1,0 +1,42 @@
+<form (ngSubmit)="save()" class="space-y-4 w-full">
+  <div>
+    <label class="block text-sm font-medium mb-1 text-gray-700">
+      Nombre del Cargo
+    </label>
+    <input
+      type="text"
+      [(ngModel)]="data.title"
+      name="title"
+      required
+      class="w-full border px-3 py-2 rounded focus:outline-none focus:ring focus:border-blue-300"
+    />
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium mb-1 text-gray-700">
+      Descripción
+    </label>
+    <textarea
+      [(ngModel)]="data.description"
+      name="description"
+      rows="3"
+      class="w-full border px-3 py-2 rounded focus:outline-none focus:ring focus:border-blue-300"
+    ></textarea>
+  </div>
+
+  <div class="flex justify-end gap-2">
+    <button
+      type="button"
+      (click)="cancel()"
+      class="px-4 py-2 rounded border border-gray-300 text-gray-700 hover:bg-gray-100"
+    >
+      Cancelar
+    </button>
+    <button
+      type="submit"
+      class="px-4 py-2 rounded bg-blue-600 text-white hover:bg-blue-700"
+    >
+      Guardar
+    </button>
+  </div>
+</form>

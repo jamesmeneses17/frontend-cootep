@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 import { AuthGuard } from './auth/guards/auth.guard';
-import { AdminGuard } from './guards/admin.guard'; // 👈 Importar el AdminGuard
+import { AdminGuard } from './guards/admin.guard';
 
 export const routes: Routes = [
   {
@@ -52,7 +52,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
 
-  // 🔐 Panel del Administrador (solo accesible si es admin)
+  // 🔐 Panel del Administrador
   {
     path: 'admin',
     loadComponent: () =>
@@ -78,6 +78,11 @@ export const routes: Routes = [
         path: 'employment-history',
         loadComponent: () =>
           import('./pages/admin/employment-history/employment-history.component').then(m => m.EmploymentHistoryComponent),
+      },
+      {
+        path: 'positions-functions',
+        loadComponent: () =>
+          import('./pages/admin/positions-functions/positions-functions.component').then(m => m.PositionsFunctionsComponent),
       },
       {
         path: '',

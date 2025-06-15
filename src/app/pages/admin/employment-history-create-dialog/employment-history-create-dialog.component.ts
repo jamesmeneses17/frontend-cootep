@@ -54,6 +54,8 @@ export class EmploymentHistoryCreateDialogComponent implements OnInit {
   }
 
   @Output() saved = new EventEmitter<void>();
+  @Output() onCreated = new EventEmitter<void>();
+
 
   onSubmit(): void {
     if (this.form.invalid) return;
@@ -73,7 +75,9 @@ export class EmploymentHistoryCreateDialogComponent implements OnInit {
         next: () => {
           alert('Historial laboral creado correctamente.');
           this.form.reset();
-          this.saved.emit(); // 👈 dispara el evento al padre
+          this.saved.emit(); // dispara el evento al padre
+          this.onCreated.emit(); // Notifica al padre que se creó
+
         },
         error: (err) => {
           console.error('Error al crear historial:', err);

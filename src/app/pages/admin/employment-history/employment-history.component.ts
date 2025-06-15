@@ -149,5 +149,10 @@ export class EmploymentHistoryComponent implements OnInit {
       });
     }
   }
+  handleCreated(): void {
+    this.showCreateForm = false;
+    this.loadHistories();
+  }
+
 
 }
