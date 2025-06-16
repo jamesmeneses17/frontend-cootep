@@ -52,7 +52,7 @@ export const routes: Routes = [
     canActivate: [AuthGuard],
   },
 
-  // 🔐 Panel del Administrador
+  //  Panel del Administrador
   {
     path: 'admin',
     loadComponent: () =>
@@ -84,6 +84,13 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./pages/admin/positions-functions/positions-functions.component').then(m => m.PositionsFunctionsComponent),
       },
+      {
+      path: 'statistics',
+        loadComponent: () =>
+          import('./pages/admin/statistics/statistics.component').then(m => m.StatisticsComponent),
+        canActivate: [AdminGuard],
+      },
+
       {
         path: '',
         redirectTo: 'employees',

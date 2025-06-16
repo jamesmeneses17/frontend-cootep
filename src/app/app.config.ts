@@ -13,13 +13,17 @@ import {
   withInterceptors
 } from '@angular/common/http';
 import { tokenInterceptor } from './auth/interceptors/token.interceptor';
+import {
+  provideCharts,
+  withDefaultRegisterables
+} from 'ng2-charts';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    provideHttpClient(withInterceptors([tokenInterceptor]))
+    provideHttpClient(withInterceptors([tokenInterceptor])),
+    provideCharts(withDefaultRegisterables())
   ]
 };
-// 
