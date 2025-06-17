@@ -1,112 +1,262 @@
-<!-- Header -->
-<header class="bg-[#469c38] text-white py-4 shadow">
-  <div
-    class="w-full px-6 flex flex-col md:flex-row justify-between items-center gap-2"
-  >
-    <h1 class="text-2xl font-bold">CootepCert</h1>
+<!-- Header optimizado con elementos de soporte -->
+<header class="header-main">
+  <div class="header-container">
+    <div class="header-content">
+      <!-- Logo a la izquierda -->
+      <div class="logo-section">
+        <img src="assets/cootepp.png" alt="Logo COOTEP" class="logo-image" />
+      </div>
+
+      <!-- Título y información centrados -->
+      <div class="title-section">
+        <p class="institutional-text">
+          COOPERATIVA DE LOS TRABAJADORES DE LA EDUCACIÓN<br />
+          Y EMPRESARIOS DEL PUTUMAYO
+        </p>
+      </div>
+
+      <!-- Elementos de soporte a la derecha -->
+      <div class="support-section">
+        <div class="support-buttons">
+          <a href="#" class="support-btn">
+            <i class="fas fa-headset"></i>
+            <span class="support-text">Soporte 24/7</span>
+          </a>
+          <a href="#" class="support-btn">
+            <i class="fas fa-phone"></i>
+            <span class="support-text">Contacto</span>
+          </a>
+        </div>
+        <div class="status-indicator">
+          <div class="status-dot"></div>
+          <span class="status-text">Sistema Activo</span>
+        </div>
+      </div>
+    </div>
   </div>
 </header>
 
-<!-- Main Login Section -->
-<main class="min-h-[calc(100vh-112px)] bg-white px-4 py-8 md:py-12">
-  <div
-    class="max-w-7xl mx-auto flex flex-col md:flex-row items-center justify-between gap-8"
-  >
-    <!-- Formulario -->
+<!-- Main optimizado para pantalla completa -->
+<main class="main-container">
+  <!-- Elementos decorativos -->
+  <div class="decorative-element decorative-1"></div>
+  <div class="decorative-element decorative-2"></div>
+  <div class="decorative-element decorative-3"></div>
 
-    <form
-      class="w-full md:w-1/2 px-6 text-center md:text-left"
-      (ngSubmit)="onSubmit()"
-    >
-      <h2 class="text-3xl font-bold text-gray-900 mb-2 text-center">
-        Iniciar Sesión
-      </h2>
+  <div class="content-wrapper">
+    <!-- Sección de Login -->
+    <div class="login-section">
+      <div class="login-card">
+        <!-- Barra decorativa superior -->
+        <div class="card-header-bar"></div>
 
-      <p class="text-sm text-gray-600 mb-6 text-center">
-        Ingresa tus credenciales para acceder:
-      </p>
-
-      <!-- Campo correo -->
-      <div class="mb-4 relative">
-        <label for="email" class="block text-sm font-medium text-gray-700 mb-1"
-          >Correo electrónico</label
-        >
-        <div class="relative">
-          <span
-            class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400"
-          >
-            <i class="fas fa-envelope"></i>
-          </span>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            [(ngModel)]="email"
-            class="w-full pl-10 pr-4 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#008000]"
-            required
-          />
+        <!-- Header del formulario -->
+        <div class="form-header">
+          <div class="form-icon">
+            <i class="fas fa-user-shield"></i>
+          </div>
+          <h2 class="form-title">Acceso Seguro</h2>
+          <p class="form-subtitle">
+            Portal de servicios COOTEP - Ingresa tus credenciales
+          </p>
+          <div class="title-underline"></div>
         </div>
-      </div>
 
-      <!-- Campo contraseña -->
-      <div class="mb-6 relative">
-        <label
-          for="password"
-          class="block text-sm font-medium text-gray-700 mb-1"
-          >Contraseña</label
-        >
-        <div class="relative">
-          <span
-            class="absolute inset-y-0 left-0 pl-3 flex items-center text-gray-400"
-          >
-            <i class="fas fa-lock"></i>
-          </span>
-          <input
-            [type]="showPassword ? 'text' : 'password'"
-            id="password"
-            name="password"
-            [(ngModel)]="password"
-            class="w-full pl-10 pr-10 py-2 border rounded focus:outline-none focus:ring-2 focus:ring-[#008000]"
-            required
-          />
-          <button
-            type="button"
-            (click)="showPassword = !showPassword"
-            class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400"
-            tabindex="-1"
-          >
-            <i
-              class="fas"
-              [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
-            ></i>
+        <!-- Formulario -->
+        <form (ngSubmit)="onSubmit()" class="login-form">
+          <!-- Campo Email -->
+          <div class="form-group">
+            <label for="email" class="form-label">Correo Electrónico</label>
+            <div class="input-wrapper">
+              <div class="input-icon">
+                <i class="fas fa-envelope"></i>
+              </div>
+              <input
+                type="email"
+                id="email"
+                name="email"
+                [(ngModel)]="email"
+                class="form-input"
+                placeholder="usuario@cootep.com.co"
+                required
+              />
+            </div>
+          </div>
+
+          <!-- Campo Contraseña -->
+          <div class="form-group">
+            <label for="password" class="form-label">Contraseña</label>
+            <div class="input-wrapper">
+              <div class="input-icon">
+                <i class="fas fa-lock"></i>
+              </div>
+              <input
+                [type]="showPassword ? 'text' : 'password'"
+                id="password"
+                name="password"
+                [(ngModel)]="password"
+                class="form-input password-input"
+                placeholder="Ingresa tu contraseña"
+                required
+              />
+              <button
+                type="button"
+                (click)="showPassword = !showPassword"
+                class="password-toggle"
+                tabindex="-1"
+                [attr.aria-label]="
+                  showPassword ? 'Ocultar contraseña' : 'Mostrar contraseña'
+                "
+              >
+                <i
+                  class="fas"
+                  [ngClass]="showPassword ? 'fa-eye-slash' : 'fa-eye'"
+                ></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Opciones -->
+          <div class="form-options">
+            <label class="checkbox-wrapper">
+              <input type="checkbox" class="form-checkbox" />
+              <span class="checkbox-text">Mantener sesión activa</span>
+            </label>
+            <a href="#" class="forgot-password">¿Olvidaste tu contraseña?</a>
+          </div>
+
+          <!-- Botón de Login -->
+          <button type="submit" class="login-button">
+            <span class="button-content">
+              <i class="fas fa-sign-in-alt"></i>
+              Ingresar al Portal
+            </span>
           </button>
+        </form>
+
+        <!-- Información de seguridad compacta -->
+        <div class="security-info">
+          <div class="security-icon">
+            <i class="fas fa-shield-alt"></i>
+          </div>
+          <div class="security-text">
+            <h4 class="security-title">Conexión Segura</h4>
+            <p class="security-description">
+              Tus datos están protegidos con SSL
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección de Certificados -->
+    <div class="certificates-section">
+      <!-- Título -->
+      <div class="certificates-header">
+        <h3 class="certificates-title">Tipos de Certificados</h3>
+        <p class="certificates-subtitle">
+          Selecciona el certificado que necesitas generar
+        </p>
+        <div class="certificates-underline"></div>
+      </div>
+
+      <!-- Grid de Certificados -->
+      <div class="certificates-grid">
+        <!-- Certificado con Salarios -->
+        <div class="certificate-card salary-card">
+          <div class="certificate-icon salary-icon">
+            <i class="fas fa-money-bill-wave"></i>
+          </div>
+          <h4 class="certificate-title">Certificado con Salarios</h4>
+          <p class="certificate-description">
+            Certificación laboral que incluye información detallada de salarios
+            y devengos
+          </p>
+          <div class="certificate-status available">
+            <span>Disponible</span>
+          </div>
+        </div>
+
+        <!-- Certificado de Funciones -->
+        <div class="certificate-card functions-card">
+          <div class="certificate-icon functions-icon">
+            <i class="fas fa-tasks"></i>
+          </div>
+          <h4 class="certificate-title">Certificado de Funciones</h4>
+          <p class="certificate-description">
+            Certificación que detalla las funciones y responsabilidades del
+            cargo actual
+          </p>
+          <div class="certificate-status available">
+            <span>Disponible</span>
+          </div>
+        </div>
+
+        <!-- Historial de Cargos -->
+        <div class="certificate-card history-card">
+          <div class="certificate-icon history-icon">
+            <i class="fas fa-history"></i>
+          </div>
+          <h4 class="certificate-title">Historial de Cargos</h4>
+          <p class="certificate-description">
+            Certificación completa con el historial de todos los cargos
+            desempeñados
+          </p>
+          <div class="certificate-status available">
+            <span>Disponible</span>
+          </div>
         </div>
       </div>
 
-      <button
-        type="submit"
-        class="w-full bg-[#1E6091] text-white py-2 rounded-full hover:bg-[#447135] hover:text-black transition-colors duration-300 text-sm"
-      >
-        Iniciar sesión
-      </button>
-
-      <div class="mt-4 text-sm text-[#008000]">
-        <a href="#" class="hover:underline">¿Olvidaste tu contraseña?</a>
+      <!-- Información adicional -->
+      <div class="certificates-info">
+        <div class="info-icon">
+          <i class="fas fa-certificate"></i>
+        </div>
+        <div class="info-content">
+          <h4 class="info-title">Certificados Oficiales COOTEP</h4>
+          <p class="info-description">
+            Documentos oficiales con validez legal, generados automáticamente.
+          </p>
+          <div class="info-badges">
+            <span class="info-badge">
+              <i class="fas fa-check"></i>Validez Legal
+            </span>
+            <span class="info-badge">
+              <i class="fas fa-download"></i>Descarga PDF
+            </span>
+            <span class="info-badge"> <i class="fas fa-clock"></i>24/7 </span>
+          </div>
+        </div>
       </div>
-    </form>
-
-    <!-- Imagen decorativa -->
-    <div class="flex w-full md:w-1/2 justify-center items-center">
-      <img
-        src="assets/cootep.png"
-        alt="Login visual"
-        class="max-w-[500px] w-full h-auto object-contain"
-      />
     </div>
   </div>
 </main>
 
-<!-- Footer -->
-<footer class="bg-[#469c38] text-white text-center py-4">
-  © 2025 CootepCert. Todos los derechos reservados.
+<!-- Footer compacto -->
+<footer class="footer-main">
+  <div class="footer-container">
+    <div class="footer-content">
+      <div class="footer-left">
+        <p class="footer-copyright">
+          © 2025 COOTEP. Todos los derechos reservados.
+        </p>
+        <p class="footer-slogan">"Crecemos unidos para servir"</p>
+      </div>
+      <div class="footer-right">
+        <a href="#" class="footer-link">
+          <i class="fas fa-phone"></i>
+          <span>Línea de atención</span>
+        </a>
+        <a href="#" class="footer-link">
+          <i class="fas fa-envelope"></i>
+          <span>Contacto</span>
+        </a>
+        <a href="#" class="footer-link">
+          <i class="fas fa-globe"></i>
+          <span>cootep.com.co</span>
+        </a>
+      </div>
+    </div>
+  </div>
 </footer>

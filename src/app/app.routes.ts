@@ -85,12 +85,23 @@ export const routes: Routes = [
           import('./pages/admin/positions-functions/positions-functions.component').then(m => m.PositionsFunctionsComponent),
       },
       {
-      path: 'statistics',
+        path: 'statistics',
         loadComponent: () =>
           import('./pages/admin/statistics/statistics.component').then(m => m.StatisticsComponent),
         canActivate: [AdminGuard],
       },
-
+      {
+        path: 'usuarios',
+        loadComponent: () =>
+          import('./pages/admin/admin-user-list/admin-user-list.component').then(m => m.AdminUserListComponent),
+        canActivate: [AdminGuard],
+      },
+      {
+        path: 'importar-excel', // ✅ ahora es relativa
+        loadComponent: () =>
+          import('./pages/admin/import-excel/import-excel.component').then(m => m.ImportExcelComponent),
+        canActivate: [AdminGuard],
+      },
       {
         path: '',
         redirectTo: 'employees',

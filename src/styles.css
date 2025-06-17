@@ -1,5 +1,16 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* Tus variables y clases personalizadas */
+:root {
+  --cootep-yellow-primary: #f4d03f;
+  --cootep-yellow-secondary: #f7dc6f;
+  --cootep-green-dark: #1b5e20;
+  --cootep-green-primary: #2e7d32;
+  --cootep-green-medium: #4caf50;
+  --cootep-green-light: #66bb6a;
+  --cootep-green-accent: #8bc34a;
+  --cootep-green-bg: #e8f5e8;
+  --cootep-green-bg-light: #f1f8e9;
+}
