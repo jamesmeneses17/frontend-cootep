@@ -14,3 +14,67 @@
   --cootep-green-bg: #e8f5e8;
   --cootep-green-bg-light: #f1f8e9;
 }
+
+/* Variables COOTEP */
+:root {
+  --cootep-yellow-primary: #f4d03f;
+  --cootep-yellow-secondary: #f7dc6f;
+  --cootep-green-dark: #1b5e20;
+  --cootep-green-primary: #2e7d32;
+  --cootep-green-medium: #4caf50;
+  --cootep-green-light: #66bb6a;
+  --cootep-green-accent: #8bc34a;
+}
+
+/* Variables COOTEP */
+:root {
+  --cootep-yellow-primary: #f4d03f;
+  --cootep-yellow-secondary: #f7dc6f;
+  --cootep-green-dark: #1b5e20;
+  --cootep-green-primary: #2e7d32;
+  --cootep-green-medium: #4caf50;
+  --cootep-green-light: #66bb6a;
+  --cootep-green-accent: #8bc34a;
+}
+
+/* Variables COOTEP */
+:root {
+  --cootep-yellow-primary: #f4d03f;
+  --cootep-yellow-secondary: #f7dc6f;
+  --cootep-green-dark: #1b5e20;
+  --cootep-green-primary: #2e7d32;
+  --cootep-green-medium: #4caf50;
+  --cootep-green-light: #66bb6a;
+  --cootep-green-accent: #8bc34a;
+}
+
+/* Variables COOTEP Oficiales */
+:root {
+  --cootep-green-primary: #2d5016;
+  --cootep-green-secondary: #4a7c59;
+  --cootep-green-light: #6ba644;
+  --cootep-yellow-primary: #f4d03f;
+  --cootep-yellow-secondary: #f7dc6f;
+  --cootep-white: #ffffff;
+  --cootep-gray-50: #f9fafb;
+  --cootep-gray-100: #f3f4f6;
+  --cootep-gray-200: #e5e7eb;
+  --cootep-gray-600: #4b5563;
+  --cootep-gray-800: #1f2937;
+}
+
+/* Variables COOTEP Oficiales */
+:root {
+  --cootep-green-primary: #2d5016;
+  --cootep-green-secondary: #4a7c59;
+  --cootep-green-light: #6ba644;
+  --cootep-yellow-primary: #f4d03f;
+  --cootep-yellow-secondary: #f7dc6f;
+  --cootep-white: #ffffff;
+  --cootep-gray-50: #f9fafb;
+  --cootep-gray-100: #f3f4f6;
+  --cootep-gray-200: #e5e7eb;
+  --cootep-gray-300: #d1d5db;
+  --cootep-gray-600: #4b5563;
+  --cootep-gray-800: #1f2937;
+}

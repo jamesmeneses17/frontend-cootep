@@ -39,9 +39,15 @@ export class EmployeeService {
       .pipe(map((res) => res.startDates));
   }
 
-  getEmployees(page: number, limit: number) {
-    return this.http.get<any>(`${this.apiUrl}/employees?page=${page}&limit=${limit}`);
+  getEmployees(page: number, limit: number, searchTerm = '', status = '') {
+    const params = new URLSearchParams();
+
+    if (searchTerm) params.append('search', searchTerm);
+    if (status && status !== 'all') params.append('status', status);
+
+    return this.http.get<any>(`${this.apiUrl}/employees?page=${page}&limit=${limit}&${params.toString()}`);
   }
+
 
   getEmployeeDetails(id: number) {
     return this.http.get<any>(`${this.apiUrl}/employees/${id}/details`);

@@ -47,15 +47,21 @@ export class EmployeeListComponent implements OnInit {
   }
 
   loadEmployees(): void {
-    this.employeeService.getEmployees(this.currentPage, this.pageSize).subscribe({
-      next: (res) => {
-        console.log('Empleados cargados:', res); // ← útil para depuración
-        this.employees = res.data;
-        this.totalPages = res.totalPages;
-        this.totalItems = res.total;
-      },
-      error: (err) => console.error('Error al obtener empleados:', err),
-    });
+    this.employeeService
+      .getEmployees(this.currentPage, this.pageSize, this.searchTerm, this.selectedStatus)
+      .subscribe({
+        next: (res) => {
+          this.employees = res.data;
+          this.totalPages = res.totalPages;
+          this.totalItems = res.total;
+        },
+        error: (err) => console.error('Error al obtener empleados:', err),
+      });
+  }
+
+  onSearchChange(): void {
+    this.currentPage = 1;
+    this.loadEmployees();
   }
 
   getLatestEmployment(employee: Employee): EmploymentHistory | null {
@@ -96,21 +102,4 @@ export class EmployeeListComponent implements OnInit {
       if (result) this.loadEmployees();
     });
   }
-
-  get filteredEmployees() {
-    return this.employees.filter(emp => {
-      const email = emp.user?.email || '';
-      const fullText = `${emp.first_name} ${emp.last_name} ${emp.national_id} ${email}`.toLowerCase();
-      const matchesSearch = fullText.includes(this.searchTerm.toLowerCase());
-      const matchesStatus = this.selectedStatus === 'all' || emp.status?.name === this.selectedStatus;
-
-      const ingreso = new Date(this.getLatestEmployment(emp)?.startDate || '');
-      const matchesDate =
-        (!this.dateStart || ingreso >= new Date(this.dateStart)) &&
-        (!this.dateEnd || ingreso <= new Date(this.dateEnd));
-
-      return matchesSearch && matchesStatus && matchesDate;
-    });
-  }
-
 }

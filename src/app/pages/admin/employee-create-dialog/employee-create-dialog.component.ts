@@ -46,10 +46,15 @@ export class EmployeeCreateDialogComponent implements OnInit {
       },
       error: (err) => {
         console.error(err);
-        alert('Error al crear empleado');
+        if (err.error?.message) {
+          alert(`Error: ${err.error.message}`);
+        } else {
+          alert('Error al crear empleado');
+        }
       }
     });
   }
+
 
 
   cancel() {

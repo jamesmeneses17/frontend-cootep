@@ -1,39 +1,60 @@
-<header
-  class="bg-[#1E6091] text-white py-4 px-6 shadow flex justify-between items-center"
->
-  <div class="flex items-center gap-4">
-    <!-- Botón hamburguesa móvil -->
-    <button
-      class="md:hidden focus:outline-none text-white text-2xl"
-      (click)="toggleSidebar()"
-    >
-      <i class="fas fa-bars"></i>
-    </button>
-    <h2 class="text-xl font-bold">Panel del Administrador</h2>
-  </div>
-
-  <!-- Dropdown -->
-  <div class="relative" (click)="toggleMenu()" tabindex="0">
-    <button class="focus:outline-none">
-      <i class="fas fa-sign-out-alt text-white text-xl"></i>
-    </button>
-
-    <div
-      *ngIf="menuOpen"
-      class="absolute right-0 mt-2 w-64 bg-white text-gray-800 rounded-md shadow-lg z-50 text-sm"
-    >
-      <div
-        class="px-4 py-2 border-b border-gray-200 text-gray-500 font-medium text-xs uppercase"
-      >
-        Opciones
-      </div>
-      <button
-        class="w-full flex items-center px-4 py-2 hover:bg-gray-100 text-left"
-        (click)="logout()"
-      >
-        <i class="fas fa-sign-out-alt text-gray-600 mr-2 text-sm"></i>
-        Cerrar Sesión
+<header class="header-admin">
+  <div class="header-container">
+    <!-- Sección izquierda con logo y título -->
+    <div class="header-left">
+      <!-- Botón hamburguesa móvil -->
+      <button class="mobile-menu-btn" (click)="toggleSidebar()">
+        <i class="fas fa-bars"></i>
       </button>
+
+      <!-- Logo y branding -->
+      <div class="header-brand">
+        <div class="brand-info">
+          <h1 class="brand-title">Panel Administrativo</h1>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección derecha con controles -->
+    <div class="header-right">
+      <!-- Indicador de estado -->
+      <div class="status-indicator">
+        <div class="status-dot"></div>
+        <span class="status-text">Sistema Activo</span>
+      </div>
+
+      <!-- Dropdown de usuario -->
+      <div class="user-dropdown" (click)="toggleMenu()" tabindex="0">
+        <button class="user-btn">
+          <div class="user-avatar">
+            <i class="fas fa-user-shield"></i>
+          </div>
+          <div class="user-info">
+            <span class="user-name">Administrador</span>
+            <span class="user-role">Super Admin</span>
+          </div>
+          <i class="fas fa-chevron-down dropdown-arrow"></i>
+        </button>
+
+        <div *ngIf="menuOpen" class="dropdown-menu">
+          <div class="dropdown-header">
+            <div class="dropdown-avatar">
+              <i class="fas fa-user-shield"></i>
+            </div>
+            <div class="dropdown-user-info">
+              <span class="dropdown-name">Administrador</span>
+              <span class="dropdown-email">admincootep.com.co</span>
+            </div>
+          </div>
+          <div class="dropdown-divider"></div>
+
+          <div class="dropdown-divider"></div>
+          <button class="dropdown-item logout" (click)="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Cerrar Sesión</span>
+          </button>
+        </div>
+      </div>
     </div>
   </div>
 </header>

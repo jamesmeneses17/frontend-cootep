@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './header-admin.component.html',
+  styleUrls: ['./header-admin.component.css'],
 })
 export class HeaderAdminComponent {
   @Input() sidebarOpen = false;

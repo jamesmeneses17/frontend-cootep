@@ -1,54 +1,90 @@
-<aside class="w-64 bg-[#779a6b] text-white flex flex-col py-6 h-full">
-  <!-- Logo -->
-  <div class="mb-10 flex justify-center">
-    <img src="assets/cootepp.png" alt="Logo" class="h-16" />
-  </div>
+<aside class="sidebar-admin">
+ 
+  <!-- Navegación Principal -->
+  <nav class="sidebar-nav">
+    <div class="nav-section">
+  
 
-  <!-- Navegación del Administrador -->
-  <nav class="flex-1 w-full space-y-2 px-4 text-sm">
-    <a
-      routerLink="/admin/employees"
-      routerLinkActive="bg-green-700"
-      [routerLinkActiveOptions]="{ exact: true }"
-      class="flex items-center gap-2 px-4 py-2 rounded font-semibold hover:bg-green-600 transition"
-    >
-      <i class="fas fa-users"></i> Empleados
-    </a>
+      <div class="nav-items">
+        <a
+          routerLink="/admin/employees"
+          routerLinkActive="nav-item-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-item"
+        >
+          <div class="nav-item-content">
+            <div class="nav-icon">
+              <i class="fas fa-users"></i>
+            </div>
+            <span class="nav-text">Empleados</span>
+   
+          </div>
+          <div class="nav-indicator"></div>
+        </a>
 
-    <a
-      routerLink="/admin/employment-history"
-      routerLinkActive="bg-green-700"
-      [routerLinkActiveOptions]="{ exact: true }"
-      class="flex items-center gap-2 px-4 py-2 rounded font-semibold hover:bg-green-600 transition"
-    >
-      <i class="fas fa-briefcase"></i> Historial Laboral
-    </a>
+        <a
+          routerLink="/admin/employment-history"
+          routerLinkActive="nav-item-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-item"
+        >
+          <div class="nav-item-content">
+            <div class="nav-icon">
+              <i class="fas fa-briefcase"></i>
+            </div>
+            <span class="nav-text">Historial Laboral</span>
+          </div>
+          <div class="nav-indicator"></div>
+        </a>
 
-    <a
-      routerLink="/admin/positions-functions"
-      routerLinkActive="bg-green-700"
-      [routerLinkActiveOptions]="{ exact: true }"
-      class="flex items-center gap-2 px-4 py-2 rounded font-semibold hover:bg-green-600 transition"
-    >
-      <i class="fas fa-sitemap"></i> Cargos y Funciones
-    </a>
+        <a
+          routerLink="/admin/positions-functions"
+          routerLinkActive="nav-item-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-item"
+        >
+          <div class="nav-item-content">
+            <div class="nav-icon">
+              <i class="fas fa-sitemap"></i>
+            </div>
+            <span class="nav-text">Cargos y Funciones</span>
+          </div>
+          <div class="nav-indicator"></div>
+        </a>
 
-    <a
-      routerLink="/admin/statistics"
-      routerLinkActive="bg-green-700"
-      [routerLinkActiveOptions]="{ exact: true }"
-      class="flex items-center gap-2 px-4 py-2 rounded font-semibold hover:bg-green-600 transition"
-    >
-      <i class="fas fa-chart-bar"></i> Estadísticas
-    </a>
+        <a
+          routerLink="/admin/statistics"
+          routerLinkActive="nav-item-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-item"
+        >
+          <div class="nav-item-content">
+            <div class="nav-icon">
+              <i class="fas fa-chart-bar"></i>
+            </div>
+            <span class="nav-text">Estadísticas</span>
 
-    <a
-      routerLink="/admin/usuarios"
-      routerLinkActive="bg-green-700"
-      [routerLinkActiveOptions]="{ exact: true }"
-      class="flex items-center gap-2 px-4 py-2 rounded font-semibold hover:bg-green-600 transition"
-    >
-      <i class="fas fa-user-shield"></i> Usuarios Admin
-    </a>
+          </div>
+          <div class="nav-indicator"></div>
+        </a>
+
+        <a
+          routerLink="/admin/usuarios"
+          routerLinkActive="nav-item-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-item"
+        >
+          <div class="nav-item-content">
+            <div class="nav-icon">
+              <i class="fas fa-user-shield"></i>
+            </div>
+            <span class="nav-text">Usuarios Admin</span>
+          </div>
+          <div class="nav-indicator"></div>
+        </a>
+      </div>
+    </div>
   </nav>
+
+ 
 </aside>

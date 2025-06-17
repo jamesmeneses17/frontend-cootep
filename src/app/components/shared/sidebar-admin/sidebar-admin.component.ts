@@ -8,6 +8,7 @@ import { RouterModule } from '@angular/router';
 
   imports: [CommonModule, RouterModule],
   templateUrl: './sidebar-admin.component.html',
+  styleUrls: ['./sidebar-admin.component.css'],
 })
 export class SidebarAdminComponent {
 
