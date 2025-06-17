@@ -1,45 +1,68 @@
-<aside class="w-64 bg-[#779a6b] text-white flex flex-col py-6 h-full">
-  <!-- Logo -->
-  <div class="mb-10 flex justify-center">
-    <img src="assets/cootepp.png" alt="Logo" class="h-16" />
-  </div>
+<aside class="sidebar-empleado">
+  <!-- Navegación Principal -->
+  <nav class="sidebar-nav">
+    <div class="nav-section">
+      <div class="nav-items">
+        <a
+          routerLink="/empleado/perfil"
+          routerLinkActive="nav-item-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-item"
+        >
+          <div class="nav-item-content">
+            <div class="nav-icon">
+              <i class="fas fa-user-circle"></i>
+            </div>
+            <span class="nav-text">Mis Datos</span>
+          </div>
+          <div class="nav-indicator"></div>
+        </a>
 
-  <!-- Navegación -->
-  <nav class="flex-1 w-full space-y-2 px-4 text-sm">
-    <a
-      routerLink="/empleado/perfil"
-      routerLinkActive="bg-green-700"
-      [routerLinkActiveOptions]="{ exact: true }"
-      class="flex items-center gap-2 px-4 py-2 rounded font-semibold hover:bg-green-600 transition"
-    >
-      <i class="fas fa-user-circle"></i> Mis Datos
-    </a>
+        <a
+          routerLink="/empleado/solicitar-certificado"
+          routerLinkActive="nav-item-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-item"
+        >
+          <div class="nav-item-content">
+            <div class="nav-icon">
+              <i class="fas fa-file-alt"></i>
+            </div>
+            <span class="nav-text">Solicitar Certificado</span>
+          </div>
+          <div class="nav-indicator"></div>
+        </a>
 
-    <a
-      routerLink="/empleado/solicitar-certificado"
-      routerLinkActive="bg-green-700"
-      [routerLinkActiveOptions]="{ exact: true }"
-      class="flex items-center gap-2 px-4 py-2 rounded font-semibold hover:bg-green-600 transition"
-    >
-      <i class="fas fa-file-alt"></i> Solicitar Certificado
-    </a>
+        <a
+          routerLink="/empleado/historial-laboral"
+          routerLinkActive="nav-item-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-item"
+        >
+          <div class="nav-item-content">
+            <div class="nav-icon">
+              <i class="fas fa-briefcase"></i>
+            </div>
+            <span class="nav-text">Historial Laboral</span>
+          </div>
+          <div class="nav-indicator"></div>
+        </a>
 
-    <a
-      routerLink="/empleado/historial-laboral"
-      routerLinkActive="bg-green-700"
-      [routerLinkActiveOptions]="{ exact: true }"
-      class="flex items-center gap-2 px-4 py-2 rounded font-semibold hover:bg-green-600 transition"
-    >
-      <i class="fas fa-briefcase"></i> Historial Laboral
-    </a>
-
-    <a
-      routerLink="/empleado/ayuda"
-      routerLinkActive="bg-green-700"
-      [routerLinkActiveOptions]="{ exact: true }"
-      class="flex items-center gap-2 px-4 py-2 rounded font-semibold hover:bg-green-600 transition"
-    >
-      <i class="fas fa-question-circle"></i> Ayuda
-    </a>
+        <a
+          routerLink="/empleado/ayuda"
+          routerLinkActive="nav-item-active"
+          [routerLinkActiveOptions]="{ exact: true }"
+          class="nav-item"
+        >
+          <div class="nav-item-content">
+            <div class="nav-icon">
+              <i class="fas fa-question-circle"></i>
+            </div>
+            <span class="nav-text">Ayuda</span>
+          </div>
+          <div class="nav-indicator"></div>
+        </a>
+      </div>
+    </div>
   </nav>
 </aside>

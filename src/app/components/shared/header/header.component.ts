@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
   standalone: true,
   imports: [CommonModule],
   templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css'],
 })
 export class HeaderComponent {
 formData: any;
