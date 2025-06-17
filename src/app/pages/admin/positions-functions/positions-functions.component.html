@@ -80,37 +80,34 @@
       </tbody>
     </table>
 
-    <!-- PAGINADOR -->
+    <!-- PAGINADOR CORRECTO PARA CARGOS -->
     <mat-paginator
-      [length]="functions.length"
-      [pageSize]="functionPageSize"
-      [pageSizeOptions]="functionPageOptions"
-      (page)="onFunctionPageChange($event)"
-      aria-label="Selector de página"
+      [length]="positions.length"
+      [pageSize]="pageSize"
+      [pageSizeOptions]="pageSizeOptions"
+      (page)="onPageChange($event)"
       class="mt-4"
     />
   </div>
 
- 
-
   <!-- TAB FUNCIONES -->
   <div *ngIf="activeTab === 'functions'">
-       <!-- FILTRO POR CARGO ASOCIADO -->
-<div class="mb-4">
-  <label class="block text-sm font-medium text-gray-700 mb-1">
-    Filtrar por Cargo Asociado
-  </label>
-  <select
-    [(ngModel)]="selectedPositionFilter"
-    (change)="updatePaginatedFunctions()"
-    class="w-full max-w-xs border rounded px-3 py-2 focus:outline-none focus:ring"
-  >
-    <option [ngValue]="null">-- Todos los cargos --</option>
-    <option *ngFor="let pos of positions" [ngValue]="pos.id">
-      {{ pos.title }}
-    </option>
-  </select>
-</div>
+    <!-- FILTRO POR CARGO ASOCIADO -->
+    <div class="mb-4">
+      <label class="block text-sm font-medium text-gray-700 mb-1">
+        Filtrar por Cargo Asociado
+      </label>
+      <select
+        [(ngModel)]="selectedPositionFilter"
+        (change)="updatePaginatedFunctions()"
+        class="w-full max-w-xs border rounded px-3 py-2 focus:outline-none focus:ring"
+      >
+        <option [ngValue]="null">-- Todos los cargos --</option>
+        <option *ngFor="let pos of positions" [ngValue]="pos.id">
+          {{ pos.title }}
+        </option>
+      </select>
+    </div>
     <table class="w-full text-sm text-left border border-gray-200">
       <thead class="bg-gray-100 text-gray-700">
         <tr>
@@ -152,8 +149,7 @@
     />
   </div>
 
-
-
+  <!-- MODAL NUEVO CARGO -->
   <!-- MODAL NUEVO CARGO -->
   <div
     *ngIf="showCreateForm"

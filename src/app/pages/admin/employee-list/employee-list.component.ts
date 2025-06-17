@@ -51,6 +51,8 @@ export class EmployeeListComponent implements OnInit {
       .getEmployees(this.currentPage, this.pageSize, this.searchTerm, this.selectedStatus)
       .subscribe({
         next: (res) => {
+          console.log(' Empleados cargados:', res.data); // <-- Agrega esto
+
           this.employees = res.data;
           this.totalPages = res.totalPages;
           this.totalItems = res.total;

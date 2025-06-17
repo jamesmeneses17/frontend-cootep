@@ -9,7 +9,7 @@ import { FunctionFormComponent } from './function-form/function-form.component';
 @Component({
   selector: 'app-positions-functions',
   standalone: true,
-  imports: [CommonModule, FormsModule, MatPaginatorModule, PositionFormComponent, FunctionFormComponent],
+  imports: [CommonModule, FormsModule, MatPaginatorModule, FunctionFormComponent, PositionFormComponent],
   templateUrl: './positions-functions.component.html',
 })
 export class PositionsFunctionsComponent implements OnInit {
@@ -68,15 +68,15 @@ export class PositionsFunctionsComponent implements OnInit {
   loadPositions(): void {
     this.http.get<any[]>('http://localhost:3000/positions').subscribe({
       next: data => {
-        this.positions = data.map(pos => ({
-          ...pos,
-          id: Number(pos.id),
-        }));
+        this.positions = data
+          .map(pos => ({ ...pos, id: Number(pos.id) }))
+          .sort((a, b) => b.id - a.id);
         this.applyFilter();
       },
       error: err => console.error('Error al cargar cargos', err),
     });
   }
+
 
 
   applyFilter(): void {
@@ -151,12 +151,15 @@ export class PositionsFunctionsComponent implements OnInit {
   loadFunctions(): void {
     this.http.get<any[]>('http://localhost:3000/functions').subscribe({
       next: data => {
-        this.functions = data;
+        this.functions = data
+          .map(func => ({ ...func, id: Number(func.id) }))
+          .sort((a, b) => b.id - a.id);
         this.updatePaginatedFunctions();
       },
       error: err => console.error('Error al cargar funciones', err),
     });
   }
+
 
 
   saveFunction(data: any): void {

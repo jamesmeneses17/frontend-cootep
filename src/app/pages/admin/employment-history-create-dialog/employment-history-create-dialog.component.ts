@@ -1,12 +1,12 @@
 import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-employment-history-create-dialog',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, ReactiveFormsModule, FormsModule],
   templateUrl: './employment-history-create-dialog.component.html',
   styleUrls: ['./employment-history-create-dialog.component.css']
 })
@@ -19,6 +19,13 @@ export class EmploymentHistoryCreateDialogComponent implements OnInit {
   employees: any[] = [];
   positions: any[] = [];
   contracts: any[] = [];
+
+  searchCedula: string = '';
+  selectedEmployee: any = null;
+  notFound: boolean = false;
+
+  @Output() saved = new EventEmitter<void>();
+  @Output() onCreated = new EventEmitter<void>();
 
   ngOnInit(): void {
     this.form = this.fb.group({
@@ -42,7 +49,6 @@ export class EmploymentHistoryCreateDialogComponent implements OnInit {
       });
   }
 
-
   loadPositions(): void {
     this.http.get<any[]>('http://localhost:3000/positions')
       .subscribe(data => this.positions = data);
@@ -53,12 +59,30 @@ export class EmploymentHistoryCreateDialogComponent implements OnInit {
       .subscribe(data => this.contracts = data);
   }
 
-  @Output() saved = new EventEmitter<void>();
-  @Output() onCreated = new EventEmitter<void>();
+  searchEmployeeByCedula(): void {
+    const trimmed = this.searchCedula.trim();
+    if (trimmed.length < 5) {
+      this.selectedEmployee = null;
+      this.notFound = false;
+      this.form.patchValue({ employeeId: '' });
+      return;
+    }
 
+    const found = this.employees.find(e => e.national_id === trimmed);
+
+    if (found) {
+      this.selectedEmployee = found;
+      this.form.patchValue({ employeeId: found.id });
+      this.notFound = false;
+    } else {
+      this.selectedEmployee = null;
+      this.form.patchValue({ employeeId: '' });
+      this.notFound = true;
+    }
+  }
 
   onSubmit(): void {
-    if (this.form.invalid) return;
+    if (this.form.invalid || !this.selectedEmployee) return;
 
     const formValue = this.form.value;
 
@@ -75,9 +99,11 @@ export class EmploymentHistoryCreateDialogComponent implements OnInit {
         next: () => {
           alert('Historial laboral creado correctamente.');
           this.form.reset();
-          this.saved.emit(); // dispara el evento al padre
-          this.onCreated.emit(); // Notifica al padre que se creó
-
+          this.searchCedula = '';
+          this.selectedEmployee = null;
+          this.notFound = false;
+          this.saved.emit();
+          this.onCreated.emit();
         },
         error: (err) => {
           console.error('Error al crear historial:', err);
@@ -85,9 +111,13 @@ export class EmploymentHistoryCreateDialogComponent implements OnInit {
         }
       });
   }
+@Output() cancel = new EventEmitter<void>(); 
 
   onCancel(): void {
-    // Lógica para cerrar el modal (puede ser emitido o mediante shared state)
     this.form.reset();
+    this.searchCedula = '';
+    this.selectedEmployee = null;
+    this.notFound = false;
+    this.cancel.emit(); 
   }
 }
