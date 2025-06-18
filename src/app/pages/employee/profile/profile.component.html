@@ -12,7 +12,6 @@
     [class.-translate-x-full]="!sidebarOpen"
   >
     <app-sidebar></app-sidebar>
-    <!-- Fondo oscuro para cerrar sidebar en móviles -->
     <div
       class="fixed inset-0 bg-black bg-opacity-50 md:hidden"
       (click)="sidebarOpen = false"
@@ -21,126 +20,63 @@
 
   <!-- CONTENIDO PRINCIPAL -->
   <div class="flex-1 flex flex-col overflow-hidden">
-    <!-- MAIN -->
     <main class="flex-1 overflow-y-auto px-4 py-8 space-y-10">
-      <!-- SECCIÓN DATOS PERSONALES -->
-      <section
-        class="bg-white shadow rounded-lg overflow-hidden max-w-7xl mx-auto"
-      >
-        <div class="bg-blue-900 text-white px-6 py-3 font-semibold text-lg">
-          Mis Datos Personales
+      <section class="bg-white shadow rounded-lg overflow-hidden max-w-7xl mx-auto">
+        <!-- ENCABEZADO UNIFICADO -->
+        <div class="bg-green-800 text-white px-6 py-3 font-semibold text-lg">
+          Información Personal y Laboral
         </div>
-        <div
-          class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6 py-6"
-        >
-          <div>
-            <label class="block text-base font-bold text-gray-900 mb-1"
-              >Nombres</label
-            >
-            <input
-              type="text"
-              class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-2"
-              [value]="profile?.first_name"
-              readonly
-            />
-          </div>
-          <div>
-            <label class="block text-base font-bold text-gray-900 mb-1"
-              >Apellidos</label
-            >
-            <input
-              type="text"
-              class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-2"
-              [value]="profile?.last_name"
-              readonly
-            />
-          </div>
-          <div>
-            <label class="block text-base font-bold text-gray-900 mb-1"
-              >Cédula</label
-            >
-            <input
-              type="text"
-              class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-2"
-              [value]="profile?.national_id"
-              readonly
-            />
-          </div>
-          <div>
-            <label class="block text-base font-bold text-gray-900 mb-1"
-              >Correo</label
-            >
-            <input
-              type="email"
-              class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-2"
-              [value]="profile?.email"
-              readonly
-            />
-          </div>
-        </div>
-      </section>
 
-      <!-- SECCIÓN HISTORIAL LABORAL -->
-      <section class="max-w-7xl mx-auto">
-        <div
-          class="bg-blue-900 text-white px-6 py-3 font-semibold text-lg rounded-t"
-        >
-          Información Laboral Actual
+        <!-- DATOS PERSONALES -->
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 px-6 py-6 border-b border-gray-200">
+          <div>
+            <label class="block text-base font-bold text-gray-900 mb-1">Nombres</label>
+            <input type="text" class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-2" [value]="profile?.first_name" readonly />
+          </div>
+          <div>
+            <label class="block text-base font-bold text-gray-900 mb-1">Apellidos</label>
+            <input type="text" class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-2" [value]="profile?.last_name" readonly />
+          </div>
+          <div>
+            <label class="block text-base font-bold text-gray-900 mb-1">Cédula</label>
+            <input type="text" class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-2" [value]="profile?.national_id" readonly />
+          </div>
+          <div>
+            <label class="block text-base font-bold text-gray-900 mb-1">Correo</label>
+            <input type="email" class="w-full bg-gray-100 border border-gray-300 rounded px-4 py-2" [value]="profile?.email" readonly />
+          </div>
         </div>
-        <div
-          class="bg-white px-6 py-6 rounded-b shadow-md grid grid-cols-1 md:grid-cols-3 gap-6"
-        >
+
+        <!-- INFORMACIÓN LABORAL -->
+        <div *ngIf="employmentHistory; else noHistory" class="grid grid-cols-1 md:grid-cols-3 gap-6 px-6 py-6">
           <div>
             <label class="font-bold text-gray-900 block mb-1">Cargo</label>
-            <input
-              [value]="employmentHistory?.position?.title"
-              class="w-full px-3 py-2 border border-gray-300 rounded bg-gray-100 text-gray-900"
-              readonly
-            />
+            <input [value]="employmentHistory?.position?.title" class="w-full px-3 py-2 border border-gray-300 rounded bg-gray-100 text-gray-900" readonly />
           </div>
-
           <div>
             <label class="font-bold text-gray-900 block mb-1">Salario</label>
-            <input
-              [value]="employmentHistory?.salary | currency"
-              class="w-full px-3 py-2 border border-gray-300 rounded bg-gray-100 text-gray-900"
-              readonly
-            />
+            <input [value]="employmentHistory?.salary | currency" class="w-full px-3 py-2 border border-gray-300 rounded bg-gray-100 text-gray-900" readonly />
           </div>
-
           <div>
-            <label class="font-bold text-gray-900 block mb-1"
-              >Fecha de Inicio</label
-            >
-            <input
-              [value]="employmentHistory?.startDate | date"
-              class="w-full px-3 py-2 border border-gray-300 rounded bg-gray-100 text-gray-900"
-              readonly
-            />
+            <label class="font-bold text-gray-900 block mb-1">Fecha de Inicio</label>
+            <input [value]="employmentHistory?.startDate | date" class="w-full px-3 py-2 border border-gray-300 rounded bg-gray-100 text-gray-900" readonly />
           </div>
-
           <div>
-            <label class="font-bold text-gray-900 block mb-1"
-              >Fecha de Fin</label
-            >
-            <input
-              [value]="employmentHistory?.endDate | date"
-              class="w-full px-3 py-2 border border-gray-300 rounded bg-gray-100 text-gray-900"
-              readonly
-            />
+            <label class="font-bold text-gray-900 block mb-1">Fecha de Fin</label>
+            <input [value]="employmentHistory?.endDate | date" class="w-full px-3 py-2 border border-gray-300 rounded bg-gray-100 text-gray-900" readonly />
           </div>
-
           <div>
-            <label class="font-bold text-gray-900 block mb-1"
-              >Tipo de Contrato</label
-            >
-            <input
-              [value]="employmentHistory?.contractType?.name"
-              class="w-full px-3 py-2 border border-gray-300 rounded bg-gray-100 text-gray-900"
-              readonly
-            />
+            <label class="font-bold text-gray-900 block mb-1">Tipo de Contrato</label>
+            <input [value]="employmentHistory?.contractType?.name" class="w-full px-3 py-2 border border-gray-300 rounded bg-gray-100 text-gray-900" readonly />
           </div>
         </div>
+
+        <!-- MENSAJE SI NO HAY HISTORIAL -->
+        <ng-template #noHistory>
+          <div class="px-6 py-6 text-gray-600 text-center font-medium bg-gray-50 rounded-b">
+            No tienes un historial laboral actual asignado.
+          </div>
+        </ng-template>
       </section>
     </main>
 
