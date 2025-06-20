@@ -1,0 +1,45 @@
+<div
+  class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+>
+  <div class="bg-white p-6 rounded shadow w-full max-w-md">
+    <h2 class="text-lg font-semibold mb-4">Crear nuevo administrador</h2>
+
+    <label class="block text-sm mb-1">Buscar por cédula</label>
+    <input
+      [(ngModel)]="cedula"
+      (ngModelChange)="onCedulaChange($event)"
+      class="border p-2 rounded w-full mb-2"
+      placeholder="Cédula del empleado"
+    />
+
+    <div
+      *ngIf="empleadoEncontrado?.employee"
+      class="mb-4 text-sm text-gray-700"
+    >
+      <p>
+        <strong>Empleado:</strong>
+        {{ empleadoEncontrado.employee.first_name }}
+        {{ empleadoEncontrado.employee.last_name }}
+      </p>
+      <p>
+        <strong>Cédula:</strong> {{ empleadoEncontrado.employee.national_id }}
+      </p>
+    </div>
+
+    <div class="flex justify-end gap-2 mt-4">
+      <button
+        (click)="guardar()"
+        class="bg-green-600 text-white px-4 py-2 rounded"
+        [disabled]="!empleadoEncontrado"
+      >
+        Guardar
+      </button>
+      <button
+        (click)="cancelar()"
+        class="bg-gray-400 text-white px-4 py-2 rounded"
+      >
+        Cancelar
+      </button>
+    </div>
+  </div>
+</div>

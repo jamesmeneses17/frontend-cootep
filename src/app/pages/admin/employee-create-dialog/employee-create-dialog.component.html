@@ -1,0 +1,98 @@
+<section class="bg-white rounded-lg shadow p-6">
+  <h2 class="text-xl font-semibold text-gray-800 mb-4">
+    Agregar nuevo empleado
+  </h2>
+
+  <form
+    (ngSubmit)="createEmployee()"
+    class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm"
+  >
+    <div>
+      <label class="block text-gray-600 font-medium mb-1">Nombre</label>
+      <input
+        type="text"
+        [(ngModel)]="newEmployee.first_name"
+        name="first_name"
+        class="border rounded px-2 py-1 w-full"
+        required
+      />
+    </div>
+
+    <div>
+      <label class="block text-gray-600 font-medium mb-1">Apellido</label>
+      <input
+        type="text"
+        [(ngModel)]="newEmployee.last_name"
+        name="last_name"
+        class="border rounded px-2 py-1 w-full"
+        required
+      />
+    </div>
+
+    <div>
+      <label class="block text-gray-600 font-medium mb-1">Cédula</label>
+      <input
+        type="text"
+        [(ngModel)]="newEmployee.national_id"
+        name="national_id"
+        class="border rounded px-2 py-1 w-full"
+        required
+      />
+    </div>
+
+    <div>
+      <label class="block text-gray-600 font-medium mb-1">Correo</label>
+      <input
+        type="email"
+        [(ngModel)]="newEmployee.email"
+        name="email"
+        class="border rounded px-2 py-1 w-full"
+        required
+      />
+    </div>
+
+    <div>
+      <label class="block text-gray-600 font-medium mb-1"
+        >Fecha de nacimiento</label
+      >
+      <input
+        type="date"
+        [(ngModel)]="newEmployee.birth_date"
+        name="birth_date"
+        class="border rounded px-2 py-1 w-full"
+        required
+      />
+    </div>
+
+    <div>
+      <label class="block text-gray-600 font-medium mb-1">Estado</label>
+      <select
+        [(ngModel)]="newEmployee.statusId"
+        name="statusId"
+        class="border rounded px-2 py-1 w-full"
+        required
+      >
+        <option *ngFor="let status of statuses" [value]="status.id">
+          {{ status.name }}
+        </option>
+      </select>
+    </div>
+
+    <!-- BOTONES -->
+    <div class="col-span-full flex justify-end gap-2 mt-2">
+      <button
+        type="button"
+        (click)="cancel()"
+        class="bg-gray-200 px-4 py-2 rounded"
+      >
+        Cancelar
+      </button>
+      <button
+        type="submit"
+        class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700"
+      >
+        Guardar
+      </button>
+    </div>
+  </form>
+</section>

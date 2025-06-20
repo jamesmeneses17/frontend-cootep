@@ -1,0 +1,81 @@
+<section class="bg-white rounded-lg shadow p-4 sm:p-6 w-full max-w-lg sm:max-w-2xl mx-auto">
+  <h2 class="text-lg sm:text-xl font-semibold text-gray-800 mb-4">
+    Detalle del Historial Laboral
+  </h2>
+
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+    <!-- Empleado -->
+    <div>
+      <label class="block text-gray-600 font-medium mb-1">Empleado</label>
+      <p class="border px-3 py-2 rounded bg-gray-50 text-gray-800">
+        {{ history?.employee?.first_name }} {{ history?.employee?.lastName }}
+      </p>
+    </div>
+
+    <!-- Cédula -->
+    <div>
+      <label class="block text-gray-600 font-medium mb-1">Cédula</label>
+      <p class="border px-3 py-2 rounded bg-gray-50 text-gray-800">
+        {{ history?.employee?.national_id }}
+      </p>
+    </div>
+
+    <!-- Cargo -->
+    <div>
+      <label class="block text-gray-600 font-medium mb-1">Cargo</label>
+      <p class="border px-3 py-2 rounded bg-gray-50 text-gray-800">
+        {{ history?.position?.title || '-' }}
+      </p>
+    </div>
+
+    <!-- Tipo de Contrato -->
+    <div>
+      <label class="block text-gray-600 font-medium mb-1">Tipo de contrato</label>
+      <p class="border px-3 py-2 rounded bg-gray-50 text-gray-800">
+        {{ history?.contractType?.name || '-' }}
+      </p>
+    </div>
+
+    <!-- Salario -->
+    <div>
+      <label class="block text-gray-600 font-medium mb-1">Salario</label>
+      <p class="border px-3 py-2 rounded bg-gray-50 text-gray-800">
+        $ {{ history?.salary | number: '1.0-0' }}
+      </p>
+    </div>
+
+    <!-- Fecha de Inicio -->
+    <div>
+      <label class="block text-gray-600 font-medium mb-1">Fecha de inicio</label>
+      <p class="border px-3 py-2 rounded bg-gray-50 text-gray-800">
+        {{ formatDate(history?.startDate) }}
+      </p>
+    </div>
+
+    <!-- Fecha de Fin -->
+    <div class="md:col-span-2">
+      <label class="block text-gray-600 font-medium mb-1">Fecha de terminación</label>
+      <p class="border px-3 py-2 rounded bg-gray-50 text-gray-800">
+        {{ history?.endDate ? formatDate(history.endDate) : 'Actual' }}
+      </p>
+    </div>
+
+    <!-- Descripción de funciones -->
+    <div class="md:col-span-2" *ngIf="history?.dutiesDescription">
+      <label class="block text-gray-600 font-medium mb-1">Descripción de funciones</label>
+      <p class="border px-3 py-2 rounded bg-gray-50 text-gray-800 whitespace-pre-wrap">
+        {{ history.dutiesDescription }}
+      </p>
+    </div>
+  </div>
+
+  <!-- Botón Cerrar -->
+  <div class="flex justify-end mt-6">
+    <button
+      class="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 text-gray-800"
+      (click)="onClose()"
+    >
+      Cerrar
+    </button>
+  </div>
+</section>

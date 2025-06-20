@@ -1,0 +1,43 @@
+<form (ngSubmit)="save()" class="space-y-4">
+  <div>
+    <label class="block text-sm font-medium text-gray-700 mb-1"
+      >Nombre de la Función</label
+    >
+    <input
+      type="text"
+      [(ngModel)]="data.description"
+      name="description"
+      class="w-full border rounded px-3 py-2 focus:outline-none focus:ring"
+      required
+    />
+  </div>
+
+  <div>
+    <label class="block text-sm font-medium text-gray-700 mb-1"
+      >Cargo Asociado</label
+    >
+    <select
+      [(ngModel)]="data.positionId"
+      name="positionId"
+      class="w-full border rounded px-3 py-2 focus:outline-none focus:ring"
+      required
+    >
+      <option *ngFor="let position of positions" [value]="+position.id">
+        {{ position.title }}
+      </option>
+    </select>
+  </div>
+
+  <div class="flex justify-end gap-2">
+    <button
+      type="button"
+      class="px-4 py-2 bg-gray-300 rounded"
+      (click)="onCancel.emit()"
+    >
+      Cancelar
+    </button>
+    <button type="submit" class="px-4 py-2 bg-purple-600 text-white rounded">
+      Guardar
+    </button>
+  </div>
+</form>

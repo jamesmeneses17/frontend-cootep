@@ -1,0 +1,107 @@
+<app-header
+ [profile]="profile"
+  [sidebarOpen]="sidebarOpen" 
+  [toggleSidebar]="toggleSidebar.bind(this)"></app-header>
+
+<div class="flex min-h-screen bg-gray-100 overflow-hidden">
+  <!-- SIDEBAR -->
+  <div class="fixed inset-0 z-40 flex md:static md:inset-auto md:translate-x-0 transition-transform duration-300 ease-in-out"
+       [class.-translate-x-full]="!sidebarOpen">
+    <app-sidebar></app-sidebar>
+    <div class="fixed inset-0 bg-black bg-opacity-50 md:hidden" (click)="sidebarOpen = false"></div>
+  </div>
+
+  <!-- CONTENIDO PRINCIPAL -->
+  <div class="flex-1 flex flex-col overflow-hidden">
+    <main class="flex-1 overflow-y-auto px-4 py-8 space-y-10">
+      <section class="bg-white rounded-lg shadow max-w-4xl mx-auto px-6 py-8">
+        <h2 class="text-2xl font-bold text-gray-800 mb-6">Solicitar Certificado</h2>
+        <p class="text-gray-600 mb-8">Selecciona el tipo de certificado que deseas descargar:</p>
+
+        <!-- Filtro para historial -->
+        <div *ngIf="selectedType === 'historial'" class="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6">
+          <label class="text-sm text-gray-700">
+            Desde:
+            <select [(ngModel)]="startDate" class="border p-2 rounded w-full">
+              <option value="">-- Selecciona --</option>
+              <option *ngFor="let date of startDateOptions" [value]="date">
+                {{ formatDateToUpper(date) }}
+              </option>
+            </select>
+          </label>
+
+          <label class="text-sm text-gray-700">
+            Hasta:
+            <select [(ngModel)]="endDate" class="border p-2 rounded w-full">
+              <option value="">-- Selecciona --</option>
+              <option *ngFor="let date of endDateOptions" [value]="date">
+                {{ formatDateToUpper(date) }}
+              </option>
+            </select>
+          </label>
+        </div>
+
+        <!-- Filtro para salario/funciones -->
+        <div *ngIf="selectedType === 'salario' || selectedType === 'funciones'" class="mb-6">
+          <label class="block text-sm font-medium text-gray-700 mb-2">
+            Selecciona un historial:
+          </label>
+          <div class="relative">
+            <select [(ngModel)]="selectedHistoryId"
+                    class="block appearance-none w-full bg-white border border-gray-300 text-gray-700 py-3 px-4 pr-8 rounded leading-tight focus:outline-none focus:ring-2 focus:ring-blue-500 shadow">
+              <option value="">-- Selecciona un rango --</option>
+              <option *ngFor="let h of employmentOptions" [value]="h.id">
+                {{ h.position?.title?.toUpperCase() || 'SIN CARGO' }} -
+                {{ formatDateToYearPeriod(h.startDate) }}
+                {{ h.endDate ? ' A ' + formatDateToYearPeriod(h.endDate) : '' }}
+              </option>
+            </select>
+
+            <div class="pointer-events-none absolute inset-y-0 right-0 flex items-center px-2 text-gray-700">
+              <svg class="fill-current h-4 w-4" viewBox="0 0 20 20">
+                <path d="M5.516 7.548l4.482 4.482 4.482-4.482 1.06 1.06-5.542 5.542-5.542-5.542z" />
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Botones -->
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
+          <button (click)="onSelectType('salario')"
+                  class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-6 rounded-lg shadow flex flex-col items-center space-y-2 transition">
+            <i class="fas fa-dollar-sign text-3xl"></i>
+            <span class="font-semibold">Con Salario</span>
+          </button>
+
+          <button (click)="onSelectType('funciones')"
+                  class="bg-green-600 hover:bg-green-700 text-white px-4 py-6 rounded-lg shadow flex flex-col items-center space-y-2 transition">
+            <i class="fas fa-tasks text-3xl"></i>
+            <span class="font-semibold">Con Funciones</span>
+          </button>
+
+          <button (click)="onSelectType('historial')"
+                  class="bg-purple-600 hover:bg-purple-700 text-white px-4 py-6 rounded-lg shadow flex flex-col items-center space-y-2 transition">
+            <i class="fas fa-briefcase text-3xl"></i>
+            <span class="font-semibold">Historial de Cargos</span>
+          </button>
+        </div>
+
+        <!-- Botón de descarga -->
+        <div class="mt-8 text-center">
+          <button
+            [disabled]="
+              (selectedType === 'historial' && (!startDate || !endDate)) ||
+              ((selectedType === 'salario' || selectedType === 'funciones') && !selectedHistoryId)
+            "
+            (click)="download(selectedType!)"
+            class="bg-gray-800 hover:bg-gray-900 text-white px-6 py-3 rounded-lg shadow font-semibold transition disabled:opacity-50 disabled:cursor-not-allowed">
+            Descargar Certificado
+          </button>
+        </div>
+      </section>
+    </main>
+
+    <!-- FOOTER -->
+    <app-footer></app-footer>
+  </div>
+</div>

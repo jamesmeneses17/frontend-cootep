@@ -1,0 +1,70 @@
+<header class="header-empleado">
+  <div class="header-container">
+    <!-- Sección izquierda con logo y título -->
+    <div class="header-left">
+      <!-- Botón hamburguesa móvil -->
+      <button class="mobile-menu-btn" (click)="toggleSidebar()">
+        <i class="fas fa-bars"></i>
+      </button>
+
+      <!-- Logo y branding -->
+      <div class="header-brand">
+        <div class="brand-info">
+          <h2 class="brand-title">Panel del Empleado</h2>
+        </div>
+      </div>
+    </div>
+
+    <!-- Sección derecha con controles -->
+    <div class="header-right">
+      <!-- Indicador de estado -->
+      <div class="status-indicator">
+        <div class="status-dot"></div>
+        <span class="status-text">En Línea</span>
+      </div>
+
+      <!-- Dropdown de usuario -->
+      <div class="user-dropdown" (click)="toggleMenu()" tabindex="0">
+        <button class="user-btn">
+          <div class="user-avatar">
+            <i class="fas fa-user-circle"></i>
+          </div>
+          <div class="user-info">
+            <span class="user-name"
+              >{{ profile?.first_name }} {{ profile?.last_name }}</span
+            >
+            <span class="user-role">Empleado</span>
+          </div>
+          <i class="fas fa-chevron-down dropdown-arrow"></i>
+        </button>
+
+        <div *ngIf="menuOpen" class="dropdown-menu">
+          <div class="dropdown-header">
+            <div class="dropdown-avatar">
+              <i class="fas fa-user-circle"></i>
+            </div>
+            <div class="dropdown-user-info">
+              <span class="dropdown-name"
+                >{{ profile?.first_name }} {{ profile?.last_name }}</span
+              >
+              <span class="dropdown-email">Empleado COOTEP</span>
+            </div>
+          </div>
+          <div class="dropdown-divider"></div>
+          <button
+            class="dropdown-item"
+            (click)="router.navigate(['/empleado/cambiar-contrasena'])"
+          >
+            <i class="fas fa-user-edit"></i>
+            <span>Cambiar Contraseña</span>
+          </button>
+          <div class="dropdown-divider"></div>
+          <button class="dropdown-item logout" (click)="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+            <span>Cerrar Sesión</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</header>

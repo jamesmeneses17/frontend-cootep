@@ -1,0 +1,92 @@
+<div class="bg-white rounded-xl shadow-lg p-6 max-w-2xl w-full mx-auto">
+  <h2 class="text-lg font-bold text-gray-800 mb-4">Información del Empleado</h2>
+
+ <div *ngIf="mode === 'view'" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+  <div>
+    <strong>Nombre:</strong> {{ data.first_name }} {{ data.last_name }}
+  </div>
+  <div><strong>Cédula:</strong> {{ data.national_id }}</div>
+  <div><strong>Correo:</strong> {{ data.user.email }}</div>
+  <div><strong>Rol:</strong> {{ data.user.role.name }}</div>
+  <div><strong>Estado:</strong> {{ data.status.name }}</div>
+  <div><strong>Fecha nacimiento:</strong> {{ data.birth_date | date }}</div>
+
+  <div class="col-span-full border-t pt-2">
+    <strong>Información laboral actual:</strong>
+  </div>
+
+  <ng-container *ngIf="data.latestEmployment; else noHistory">
+    <div>
+      <strong>Cargo:</strong>
+      {{ data.latestEmployment.position?.title || "-" }}
+    </div>
+    <div>
+      <strong>Tipo de contrato:</strong>
+      {{ data.latestEmployment.contractType?.name || "-" }}
+    </div>
+    <div>
+      <strong>Salario:</strong>
+      ${{ data.latestEmployment.salary | number }}
+    </div>
+    <div>
+      <strong>Fecha ingreso:</strong>
+      {{ data.latestEmployment.startDate | date }}
+    </div>
+  </ng-container>
+
+  <ng-template #noHistory>
+    <div class="col-span-full italic text-gray-500">
+      No se ha registrado historial laboral todavía.
+    </div>
+  </ng-template>
+</div>
+
+
+  <form *ngIf="mode === 'edit'" (ngSubmit)="onSubmit()" class="grid grid-cols-1 md:grid-cols-2 gap-4 text-sm">
+    <div>
+      <label class="block text-sm font-medium text-gray-600">Nombre:</label>
+      <input type="text" [(ngModel)]="data.first_name" name="first_name" class="border rounded px-2 py-1 w-full" />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-600">Apellido:</label>
+      <input type="text" [(ngModel)]="data.last_name" name="last_name" class="border rounded px-2 py-1 w-full" />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-600">Correo:</label>
+      <input type="email" [(ngModel)]="data.user.email" name="email" class="border rounded px-2 py-1 w-full" />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-600">Cédula:</label>
+      <input type="text" [(ngModel)]="data.national_id" name="national_id" class="border rounded px-2 py-1 w-full" />
+    </div>
+
+    <div>
+      <label class="block text-sm font-medium text-gray-600">Fecha de nacimiento:</label>
+      <input type="date" [(ngModel)]="data.birth_date" name="birth_date" class="border rounded px-2 py-1 w-full" />
+    </div>
+
+
+
+    <!-- Estado -->
+    <div>
+      <label class="block text-sm font-medium text-gray-600">Estado:</label>
+      <select [(ngModel)]="data.status.id" name="statusId" class="border rounded px-2 py-1 w-full">
+        <option *ngFor="let s of statuses" [value]="s.id">{{ s.name }}</option>
+      </select>
+    </div>
+
+
+    <!-- Botones -->
+    <div class="col-span-full flex justify-end gap-2 pt-4">
+      <button type="button" mat-dialog-close class="bg-gray-200 px-4 py-2 rounded">
+        Cancelar
+      </button>
+      <button type="submit" class="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700">
+        Guardar
+      </button>
+    </div>
+  </form>
+</div>

@@ -1,0 +1,15 @@
+import { CommonModule } from '@angular/common';
+import { Component } from '@angular/core';
+import { RouterModule } from '@angular/router';
+
+@Component({
+  selector: 'app-sidebar-admin',
+  standalone: true,
+
+  imports: [CommonModule, RouterModule],
+  templateUrl: './sidebar-admin.component.html',
+  styleUrls: ['./sidebar-admin.component.css'],
+})
+export class SidebarAdminComponent {
+
+}

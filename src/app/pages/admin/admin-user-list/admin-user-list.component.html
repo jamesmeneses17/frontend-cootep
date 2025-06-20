@@ -1,0 +1,77 @@
+<section class="p-6 space-y-4">
+  <h2 class="text-2xl font-bold text-gray-800 mb-2">
+    Usuarios Administradores
+  </h2>
+  <p class="text-gray-500 text-sm">
+    Lista de usuarios con rol administrador. Puedes editar o eliminar sus
+    accesos.
+  </p>
+
+  <!-- Botón visible solo para superadmin -->
+  <div *ngIf="isSuperAdmin" class="mb-4">
+    <button
+      class="bg-green-600 text-white px-4 py-2 rounded hover:bg-green-700 transition"
+      (click)="abrirFormulario()"
+    >
+      Crear nuevo administrador
+    </button>
+  </div>
+
+  <!-- MODAL flotante para formulario -->
+  <div
+    *ngIf="mostrarFormulario"
+    class="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50"
+  >
+    <div class="bg-white p-6 rounded-lg shadow max-w-md w-full">
+      <h3 class="text-lg font-semibold mb-4 text-gray-800">
+        Crear nuevo administrador
+      </h3>
+
+      <!-- Componente hijo: formulario de creación -->
+      <app-admin-user-form
+        (onGuardar)="guardarNuevoAdmin($event)"
+        (onCancelar)="cerrarFormulario()"
+      ></app-admin-user-form>
+    </div>
+  </div>
+
+  <!-- Tabla de administradores -->
+  <div class="overflow-x-auto bg-white rounded-lg shadow mt-4">
+    <table class="min-w-full text-sm table-auto">
+      <thead class="bg-gray-100 text-gray-700 uppercase tracking-wider">
+        <tr>
+          <th class="px-4 py-3 text-left">Correo</th>
+          <th class="px-4 py-3 text-left">Último Acceso</th>
+          <th class="px-4 py-3 text-left" *ngIf="isSuperAdmin">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let user of adminUsers"
+          class="border-t border-gray-200 hover:bg-gray-50 transition"
+        >
+          <td class="px-4 py-2 text-gray-600">{{ user.email }}</td>
+          <td class="px-4 py-2 text-gray-600">
+            {{ user.lastLogin ? (user.lastLogin | date : "short") : "Nunca" }}
+          </td>
+          <td class="px-4 py-2 flex space-x-2" *ngIf="isSuperAdmin">
+            <button
+              class="text-red-600 hover:text-red-800 font-semibold"
+              (click)="onDelete(user)"
+            >
+              Eliminar
+            </button>
+          </td>
+        </tr>
+        <tr *ngIf="adminUsers.length === 0">
+          <td
+            [attr.colspan]="isSuperAdmin ? 3 : 2"
+            class="px-4 py-4 text-center text-gray-500"
+          >
+            No hay usuarios administradores registrados.
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>

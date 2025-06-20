@@ -1,1 +1,24 @@
-/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Tus variables y clases personalizadas */
+:root {
+  --cootep-yellow-primary: #f4d03f;
+  --cootep-yellow-secondary: #f7dc6f;
+  --cootep-green-dark: #1b5e20;
+  --cootep-green-primary: #2e7d32;
+  --cootep-green-medium: #4caf50;
+  --cootep-green-light: #66bb6a;
+  --cootep-green-accent: #8bc34a;
+  --cootep-green-bg: #e8f5e8;
+  --cootep-green-bg-light: #f1f8e9;
+  --cootep-gray-300: #d1d5db;
+  --cootep-green-secondary: #4a7c59;
+  --cootep-white: #ffffff;
+  --cootep-gray-50: #f9fafb;
+  --cootep-gray-100: #f3f4f6;
+  --cootep-gray-200: #e5e7eb;
+  --cootep-gray-600: #4b5563;
+  --cootep-gray-800: #1f2937;
+}

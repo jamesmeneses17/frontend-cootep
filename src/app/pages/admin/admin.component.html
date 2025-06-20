@@ -1,0 +1,27 @@
+<!-- HEADER -->
+<app-header-admin
+  [sidebarOpen]="sidebarOpen"
+  [toggleSidebar]="toggleSidebar.bind(this)"
+></app-header-admin>
+
+<!-- CONTENIDO PRINCIPAL -->
+<div class="flex h-screen overflow-hidden">
+  <!-- SIDEBAR ADMIN -->
+  <div
+    class="fixed inset-0 z-40 flex md:static md:inset-auto md:translate-x-0 transition-transform duration-300 ease-in-out"
+    [class.-translate-x-full]="!sidebarOpen"
+  >
+    <app-sidebar-admin></app-sidebar-admin>
+
+    <!-- Fondo oscuro para cerrar sidebar en móviles -->
+    <div (click)="sidebarOpen = false"></div>
+  </div>
+
+  <!-- MAIN -->
+  <main class="flex-1 overflow-y-auto px-4 py-8 space-y-10 bg-gray-100">
+    <router-outlet></router-outlet>
+  </main>
+</div>
+
+<!-- FOOTER -->
+<app-footer></app-footer>
