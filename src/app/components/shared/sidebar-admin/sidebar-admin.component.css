@@ -1,5 +1,4 @@
 
-
 /* Sidebar Principal */
 .sidebar-admin {
   width: 16rem;
@@ -12,18 +11,25 @@
   position: relative;
 }
 
+/* Header del Sidebar */
+.sidebar-header {
+  padding: 1.5rem;
+  border-bottom: 1px solid var(--cootep-gray-200);
+  background: var(--cootep-gray-50);
+  flex-shrink: 0;
+}
 
 .sidebar-logo {
   display: flex;
   justify-content: center;
-  margin-bottom: 3rem;
+  margin-bottom: 1rem;
 }
 
 .logo-img {
-  height: 4.5rem;
+  height: 3.5rem;
   width: auto;
   object-fit: contain;
-  filter: drop-shadow(0 4px 4px rgba(45, 80, 22, 0.1));
+  filter: drop-shadow(0 2px 4px rgba(45, 80, 22, 0.1));
 }
 
 .sidebar-brand {
@@ -51,10 +57,13 @@
   flex: 1;
   padding: 1rem 0;
   overflow-y: auto;
+  display: flex;
+  flex-direction: column;
 }
 
 .nav-section {
   padding: 0 1rem;
+  flex: 1;
 }
 
 .nav-section-header {
@@ -90,6 +99,9 @@
   transition: all 0.2s ease;
   position: relative;
   overflow: hidden;
+  opacity: 0;
+  transform: translateX(-20px);
+  animation: slideInLeft 0.3s ease forwards;
 }
 
 .nav-item-content {
@@ -208,6 +220,7 @@
   padding: 1rem;
   border-top: 1px solid var(--cootep-gray-200);
   background: var(--cootep-gray-50);
+  flex-shrink: 0;
 }
 
 .footer-card {
@@ -333,19 +346,18 @@
   }
 }
 
-.nav-item {
-  animation: slideInLeft 0.3s ease;
+.nav-items .nav-item:nth-child(1) {
+  animation-delay: 0.05s;
 }
-
-.nav-item:nth-child(2) {
+.nav-items .nav-item:nth-child(2) {
   animation-delay: 0.1s;
 }
-.nav-item:nth-child(3) {
+.nav-items .nav-item:nth-child(3) {
+  animation-delay: 0.15s;
+}
+.nav-items .nav-item:nth-child(4) {
   animation-delay: 0.2s;
 }
-.nav-item:nth-child(4) {
-  animation-delay: 0.3s;
-}
-.nav-item:nth-child(5) {
-  animation-delay: 0.4s;
+.nav-items .nav-item:nth-child(5) {
+  animation-delay: 0.25s;
 }

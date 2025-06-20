@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 export class CertificateService {
   private apiUrl = 'http://localhost:3000';
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {}
 
   downloadCertificate(payload: {
     type: 'salario' | 'funciones' | 'historial';
@@ -19,12 +19,12 @@ export class CertificateService {
 
   getCertificateRange() {
     return this.http.get<{ startDates: string[]; endDates: string[] }>(
-      `${this.apiUrl}/certificates/range`
+      `${this.apiUrl}/employment-history/range` 
     );
   }
 
-  getEmploymentHistories() {
-    return this.http.get<any[]>(`${this.apiUrl}/certificates/history-list`);
-  }
+getEmploymentHistories() {
+  return this.http.get<any[]>(`${this.apiUrl}/employment-history/all`);
+}
 
 }

@@ -1,13 +1,28 @@
 <aside class="sidebar-empleado">
+  <!-- Header del Sidebar -->
+  <div class="sidebar-header">
+    <div class="sidebar-logo">
+      <img src="assets/cootepp.png" alt="COOTEP" class="logo-img" />
+    </div>
+    <div class="sidebar-brand">
+    </div>
+  </div>
+
   <!-- Navegación Principal -->
   <nav class="sidebar-nav">
     <div class="nav-section">
+      <div class="nav-section-header">
+        <i class="fas fa-user"></i>
+        <span>Panel del Empleado</span>
+      </div>
+
       <div class="nav-items">
         <a
           routerLink="/empleado/perfil"
           routerLinkActive="nav-item-active"
           [routerLinkActiveOptions]="{ exact: true }"
           class="nav-item"
+          (click)="closeSidebar()"
         >
           <div class="nav-item-content">
             <div class="nav-icon">
@@ -23,12 +38,14 @@
           routerLinkActive="nav-item-active"
           [routerLinkActiveOptions]="{ exact: true }"
           class="nav-item"
+          (click)="closeSidebar()"
         >
           <div class="nav-item-content">
             <div class="nav-icon">
               <i class="fas fa-file-alt"></i>
             </div>
             <span class="nav-text">Solicitar Certificado</span>
+           
           </div>
           <div class="nav-indicator"></div>
         </a>
@@ -38,6 +55,7 @@
           routerLinkActive="nav-item-active"
           [routerLinkActiveOptions]="{ exact: true }"
           class="nav-item"
+          (click)="closeSidebar()"
         >
           <div class="nav-item-content">
             <div class="nav-icon">
@@ -53,6 +71,7 @@
           routerLinkActive="nav-item-active"
           [routerLinkActiveOptions]="{ exact: true }"
           class="nav-item"
+          (click)="closeSidebar()"
         >
           <div class="nav-item-content">
             <div class="nav-icon">
@@ -65,4 +84,5 @@
       </div>
     </div>
   </nav>
+
 </aside>

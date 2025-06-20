@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { HeaderAdminComponent } from '../../components/shared/header-admin/header-admin.component'; // ✅ Nuevo header del admin
+import { HeaderAdminComponent } from '../../components/shared/header-admin/header-admin.component';
 import { SidebarAdminComponent } from '../../components/shared/sidebar-admin/sidebar-admin.component';
 import { FooterComponent } from '../../components/shared/footer/footer.component';
 
@@ -11,12 +11,12 @@ import { FooterComponent } from '../../components/shared/footer/footer.component
   imports: [
     CommonModule,
     RouterOutlet,
-    HeaderAdminComponent, 
     SidebarAdminComponent,
-    FooterComponent
+    FooterComponent,
+    HeaderAdminComponent
   ],
   templateUrl: './admin.component.html',
-  styleUrls: ['./admin.component.css'] 
+  styleUrls: ['./admin.component.css']
 })
 export class AdminComponent {
   sidebarOpen = true;
@@ -24,9 +24,17 @@ export class AdminComponent {
   toggleSidebar() {
     this.sidebarOpen = !this.sidebarOpen;
   }
+  closeSidebar() {
+    this.sidebarOpen = false;
+  }
 
   profile: any = {
     nombres: 'Administrador',
     apellidos: '',
   };
+
+
+
+
+
 }

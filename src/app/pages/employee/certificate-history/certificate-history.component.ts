@@ -30,13 +30,13 @@ export class CertificateHistoryComponent implements OnInit {
   startDate: string = '';
   endDate: string = '';
   selectedHistoryId: number | null = null;
-
   employmentOptions: any[] = [];
+
   today = new Date();
-  constructor(private certificateService: CertificateService) { }
+
+  constructor(private certificateService: CertificateService) {}
 
   ngOnInit(): void {
-    this.loadDateRange();
     this.loadEmploymentOptions();
   }
 
@@ -44,19 +44,31 @@ export class CertificateHistoryComponent implements OnInit {
     this.sidebarOpen = !this.sidebarOpen;
   }
 
-  formatDate(dateStr: string | Date): string {
-    const date = new Date(dateStr);
-    return date.toLocaleDateString('es-CO', {
-      day: '2-digit',
-      month: 'long',
-      year: 'numeric',
-    });
+  onSelectType(type: 'salario' | 'funciones' | 'historial') {
+    console.log('🟨 Tipo seleccionado:', type);
+    this.selectedType = type;
+
+    if (type === 'historial') {
+      this.loadDateRange();
+    }
   }
 
   loadDateRange() {
-    this.certificateService.getCertificateRange().subscribe((range: any) => {
-      this.startDateOptions = range.startDates || [];
-      this.endDateOptions = range.endDates || [];
+    this.certificateService.getCertificateRange().subscribe({
+      next: (range) => {
+        console.log('✅ Rango recibido desde backend:', range);
+
+        this.startDateOptions = range.startDates || [];
+        this.endDateOptions = range.endDates || [];
+
+        console.log('🟢 Fechas asignadas al componente:', {
+          start: this.startDateOptions,
+          end: this.endDateOptions,
+        });
+      },
+      error: (err) => {
+        console.error('❌ Error al obtener fechas:', err);
+      },
     });
   }
 
@@ -67,8 +79,6 @@ export class CertificateHistoryComponent implements OnInit {
   }
 
   download(type: 'salario' | 'funciones' | 'historial') {
-    this.selectedType = type;
-
     const payload: any = { type };
 
     if (type === 'historial') {
@@ -101,14 +111,9 @@ export class CertificateHistoryComponent implements OnInit {
     const options: Intl.DateTimeFormatOptions = {
       day: '2-digit',
       month: 'long',
-      year: 'numeric'
+      year: 'numeric',
     };
 
-    return date
-      .toLocaleDateString('es-CO', options)
-      .toUpperCase(); // convierte todo a MAYÚSCULAS
+    return date.toLocaleDateString('es-CO', options).toUpperCase();
   }
-
-
 }
-
