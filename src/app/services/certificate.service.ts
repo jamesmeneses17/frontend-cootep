@@ -5,12 +5,15 @@ import { HttpClient } from '@angular/common/http';
 export class CertificateService {
   private apiUrl = 'https://backend-cootep.onrender.com';
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
 
   downloadCertificate(payload: {
     type: 'salario' | 'funciones' | 'historial';
     startDate?: string;
     endDate?: string;
+    employmentHistoryId?: number;
+    positionId?: number;
+
   }) {
     return this.http.post(`${this.apiUrl}/certificates/generate`, payload, {
       responseType: 'blob',
@@ -19,12 +22,12 @@ export class CertificateService {
 
   getCertificateRange() {
     return this.http.get<{ startDates: string[]; endDates: string[] }>(
-      `${this.apiUrl}/employment-history/range` 
+      `${this.apiUrl}/employment-history/range`
     );
   }
 
-getEmploymentHistories() {
-  return this.http.get<any[]>(`${this.apiUrl}/employment-history/all`);
-}
+  getEmploymentHistories() {
+    return this.http.get<any[]>(`${this.apiUrl}/employment-history/all`);
+  }
 
 }

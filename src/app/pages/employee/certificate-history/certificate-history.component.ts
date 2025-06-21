@@ -34,7 +34,7 @@ export class CertificateHistoryComponent implements OnInit {
 
   today = new Date();
 
-  constructor(private certificateService: CertificateService) {}
+  constructor(private certificateService: CertificateService) { }
 
   ngOnInit(): void {
     this.loadEmploymentOptions();
@@ -82,11 +82,17 @@ export class CertificateHistoryComponent implements OnInit {
     const payload: any = { type };
 
     if (type === 'historial') {
-      payload.startDate = this.startDate || null;
-      payload.endDate = this.endDate || null;
+      payload.startDate = this.startDate;
+      payload.endDate = this.endDate;
     } else {
-      payload.historyId = this.selectedHistoryId || null;
+      if (this.selectedHistoryId !== null) {
+        payload.employmentHistoryId = this.selectedHistoryId;
+      } else {
+        console.warn(' No se ha seleccionado un historial laboral.');
+        return;
+      }
     }
+
 
     this.certificateService.downloadCertificate(payload).subscribe((blob) => {
       const url = window.URL.createObjectURL(blob);
