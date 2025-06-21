@@ -34,7 +34,7 @@ export class AdminUserFormComponent {
   buscarEmpleado(cedula: string) {
     if (!cedula) return;
     this.http
-      .get<any>(`http://localhost:3000/users/by-cedula/${cedula}`)
+      .get<any>(`https://backend-cootep.onrender.com/users/by-cedula/${cedula}`)
       .subscribe({
         next: (data) => (this.empleadoEncontrado = data),
         error: () => (this.empleadoEncontrado = null),

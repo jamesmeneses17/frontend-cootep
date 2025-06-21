@@ -7,7 +7,7 @@ import { Employee } from '../interfaces/employee.interface';
   providedIn: 'root',
 })
 export class EmployeeService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'https://backend-cootep.onrender.com';
 
   constructor(private http: HttpClient) { }
 
@@ -83,7 +83,7 @@ export class EmployeeService {
   }
 
   createFullEmployee(data: any) {
-    return this.http.post('http://localhost:3000/employees/full', data);
+    return this.http.post('https://backend-cootep.onrender.com/employees/full', data);
   }
 
 

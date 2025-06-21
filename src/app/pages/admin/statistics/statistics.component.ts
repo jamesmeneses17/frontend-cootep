@@ -64,12 +64,12 @@ export class StatisticsComponent implements OnInit {
   // ─── CARGAS DE DATOS ──────────────────────────────────────────────
 
   loadActiveEmployees() {
-    this.http.get<number>('http://localhost:3000/statistics/active-employees')
+    this.http.get<number>('https://backend-cootep.onrender.com/statistics/active-employees')
       .subscribe(data => this.totalActivos = data);
   }
 
   loadContractStats() {
-    this.http.get<any[]>('http://localhost:3000/statistics/contract-types')
+    this.http.get<any[]>('https://backend-cootep.onrender.com/statistics/contract-types')
       .subscribe(data => {
         this.contractLabels = data.map(item => item.name);
         this.contractData = data.map(item => +item.count);
@@ -77,7 +77,7 @@ export class StatisticsComponent implements OnInit {
   }
 
   loadLoginStats() {
-    this.http.get<any[]>('http://localhost:3000/statistics/login-frequency')
+    this.http.get<any[]>('https://backend-cootep.onrender.com/statistics/login-frequency')
       .subscribe(data => {
         this.loginLabels = data.map(item => item.date);
         this.loginData = data.map(item => +item.total);
@@ -85,7 +85,7 @@ export class StatisticsComponent implements OnInit {
   }
 
   loadEmployeeStatus() {
-    this.http.get<any[]>('http://localhost:3000/statistics/employee-status')
+    this.http.get<any[]>('https://backend-cootep.onrender.com/statistics/employee-status')
       .subscribe(data => {
         this.employeeStatusLabels = data.map(item => item.status);
         this.employeeStatusData = data.map(item => +item.count);
@@ -93,7 +93,7 @@ export class StatisticsComponent implements OnInit {
   }
 
   loadNewHiresByMonth() {
-    this.http.get<any[]>('http://localhost:3000/statistics/new-hires')
+    this.http.get<any[]>('https://backend-cootep.onrender.com/statistics/new-hires')
       .subscribe(data => {
         this.hireLabels = data.map(item => item.month);
         this.hireData = data.map(item => +item.count);
@@ -101,19 +101,19 @@ export class StatisticsComponent implements OnInit {
   }
 
   loadFunctionStats() {
-    this.http.get<any[]>('http://localhost:3000/statistics/functions-by-position')
+    this.http.get<any[]>('https://backend-cootep.onrender.com/statistics/functions-by-position')
       .subscribe(data => {
         this.functionLabels = data.map(item => item.title);
         this.functionData = data.map(item => +item.functionCount);
       });
   }
   loadEmploymentHistoryCount() {
-    this.http.get<number>('http://localhost:3000/statistics/employment-history-count')
+    this.http.get<number>('https://backend-cootep.onrender.com/statistics/employment-history-count')
       .subscribe(data => this.totalHistoriasLaborales = data);
   }
 
   loadEmployeesByPosition() {
-    this.http.get<any[]>('http://localhost:3000/statistics/employees-by-position')
+    this.http.get<any[]>('https://backend-cootep.onrender.com/statistics/employees-by-position')
       .subscribe(data => {
         this.employeesByPositionLabels = data.map(item => item.cargo);
         this.employeesByPositionData = data.map(item => +item.cantidad);
@@ -121,7 +121,7 @@ export class StatisticsComponent implements OnInit {
   }
 
   loadEmployeesWithMultipleContracts() {
-    this.http.get<number>('http://localhost:3000/statistics/employees-multiple-contracts')
+    this.http.get<number>('https://backend-cootep.onrender.com/statistics/employees-multiple-contracts')
       .subscribe(data => this.multipleContractsTotal = data);
   }
 
@@ -169,7 +169,7 @@ export class StatisticsComponent implements OnInit {
   multiContractEmployeeData: number[] = [];
 
   loadTopEmployeesWithMultipleContracts() {
-    this.http.get<any[]>('http://localhost:3000/statistics/top-multiple-contracts')
+    this.http.get<any[]>('https://backend-cootep.onrender.com/statistics/top-multiple-contracts')
       .subscribe(data => {
         this.multiContractEmployeeLabels = data.map(item => item.fullName);
         this.multiContractEmployeeData = data.map(item => +item.totalContracts);

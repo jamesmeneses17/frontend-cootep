@@ -43,19 +43,19 @@ export class EmploymentHistoryCreateDialogComponent implements OnInit {
   }
 
   loadEmployees(): void {
-    this.http.get<{ data: any[] }>('http://localhost:3000/employees')
+    this.http.get<{ data: any[] }>('https://backend-cootep.onrender.com/employees')
       .subscribe(response => {
         this.employees = response.data;
       });
   }
 
   loadPositions(): void {
-    this.http.get<any[]>('http://localhost:3000/positions')
+    this.http.get<any[]>('https://backend-cootep.onrender.com/positions')
       .subscribe(data => this.positions = data);
   }
 
   loadContracts(): void {
-    this.http.get<any[]>('http://localhost:3000/contract-type')
+    this.http.get<any[]>('https://backend-cootep.onrender.com/contract-type')
       .subscribe(data => this.contracts = data);
   }
 
@@ -94,7 +94,7 @@ export class EmploymentHistoryCreateDialogComponent implements OnInit {
         : null
     };
 
-    this.http.post('http://localhost:3000/employment-history', payload)
+    this.http.post('https://backend-cootep.onrender.com/employment-history', payload)
       .subscribe({
         next: () => {
           alert('Historial laboral creado correctamente.');

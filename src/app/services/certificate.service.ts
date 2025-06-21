@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 @Injectable({ providedIn: 'root' })
 export class CertificateService {
-  private apiUrl = 'http://localhost:3000';
+  private apiUrl = 'https://backend-cootep.onrender.com';
 
   constructor(private http: HttpClient) {}
 

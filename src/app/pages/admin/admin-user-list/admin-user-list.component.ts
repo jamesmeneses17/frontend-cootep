@@ -24,7 +24,7 @@ export class AdminUserListComponent implements OnInit {
   }
 
   loadProfile(): void {
-    this.http.get('http://localhost:3000/auth/profile').subscribe({
+    this.http.get('https://backend-cootep.onrender.com/auth/profile').subscribe({
       next: (data) => {
         console.log('Perfil cargado:', data);
         this.profile = data;
@@ -38,7 +38,7 @@ export class AdminUserListComponent implements OnInit {
   }
 
   loadAdminUsers(): void {
-    this.http.get<any[]>('http://localhost:3000/users/admins').subscribe({
+    this.http.get<any[]>('https://backend-cootep.onrender.com/users/admins').subscribe({
       next: (data) =>
         this.adminUsers = data.map((user) => ({
           ...user,
@@ -59,7 +59,7 @@ export class AdminUserListComponent implements OnInit {
       `¿Está seguro de quitar el rol de administrador a ${user.fullName}?`
     );
     if (confirmDowngrade) {
-      this.http.patch(`http://localhost:3000/users/${user.id}/downgrade`, {}).subscribe({
+      this.http.patch(`https://backend-cootep.onrender.com/users/${user.id}/downgrade`, {}).subscribe({
         next: () => this.loadAdminUsers(),
         error: (err) => console.error('Error cambiando rol del usuario', err),
       });
@@ -76,7 +76,7 @@ export class AdminUserListComponent implements OnInit {
 
   guardarNuevoAdmin(data: { employeeId: number; role: string }): void {
     const roleId = 1; // admin
-    this.http.patch(`http://localhost:3000/users/${data.employeeId}/role`, {
+    this.http.patch(`https://backend-cootep.onrender.com/users/${data.employeeId}/role`, {
       role_id: roleId,
     }).subscribe({
       next: () => {

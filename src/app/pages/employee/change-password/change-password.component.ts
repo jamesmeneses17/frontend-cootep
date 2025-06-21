@@ -57,7 +57,7 @@ onSubmit() {
     return;
   }
 
-  this.http.post('http://localhost:3000/auth/change-password', {
+  this.http.post('https://backend-cootep.onrender.com/auth/change-password', {
     currentPassword: this.formData.currentPassword,
     newPassword: this.formData.newPassword,
   })

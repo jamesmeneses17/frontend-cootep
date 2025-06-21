@@ -47,7 +47,7 @@ export class EditDialogComponent implements OnInit {
       endDate: endDate === '' ? null : endDate
     };
 
-    this.http.patch(`http://localhost:3000/employment-history/${this.data.id}`, payload).subscribe({
+    this.http.patch(`https://backend-cootep.onrender.com/employment-history/${this.data.id}`, payload).subscribe({
       next: () => {
         alert('Historial actualizado correctamente.');
         this.onUpdated.emit();
