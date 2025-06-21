@@ -78,28 +78,28 @@ export class CertificateHistoryComponent implements OnInit {
     });
   }
 
-download(type: 'salario' | 'funciones' | 'historial') {
-  const payload: any = { type };
+  download(type: 'salario' | 'funciones' | 'historial') {
+    const payload: any = { type };
 
-  if (type === 'historial') {
-    payload.startDate = this.startDate || null;
-    payload.endDate = this.endDate || null;
-  } else {
-    payload.historyId = this.selectedHistoryId || null;
+    if (type === 'historial') {
+      payload.startDate = this.startDate || null;
+      payload.endDate = this.endDate || null;
+    } else {
+      payload.historyId = Number(this.selectedHistoryId) || null;
+    }
+
+    // 🔍 Agrega este log para ver qué estás enviando
+    console.log('📤 Payload que se enviará al backend:', payload);
+
+    this.certificateService.downloadCertificate(payload).subscribe((blob) => {
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `certificado_${type}.pdf`;
+      link.click();
+      window.URL.revokeObjectURL(url);
+    });
   }
-
-  // 🔍 Agrega este log para ver qué estás enviando
-  console.log('📤 Payload que se enviará al backend:', payload);
-
-  this.certificateService.downloadCertificate(payload).subscribe((blob) => {
-    const url = window.URL.createObjectURL(blob);
-    const link = document.createElement('a');
-    link.href = url;
-    link.download = `certificado_${type}.pdf`;
-    link.click();
-    window.URL.revokeObjectURL(url);
-  });
-}
 
 
   formatDateToYearPeriod(dateStr: string): string {
