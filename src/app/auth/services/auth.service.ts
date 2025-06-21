@@ -1,15 +1,18 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { environment } from '../../../enviroments/enviroment';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class AuthService {
-  private apiUrl = 'http://localhost:3000/auth/login';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
   login(credentials: { email: string; password: string }) {
-    return this.http.post(this.apiUrl, credentials);
+    return this.http.post(`${this.apiUrl}/auth/login`, credentials, {
+      withCredentials: true,
+    });
   }
 }
