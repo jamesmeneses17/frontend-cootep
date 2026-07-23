@@ -36,16 +36,18 @@ export class LoginComponent {
 
         // Decodificar el token para extraer el rol
         const payload = JSON.parse(atob(data.access_token.split('.')[1]));
-        const role = payload.role;
+        const role = (payload.role || '').toLowerCase();
+        const isSuperAdmin = payload.is_superadmin === true || payload.is_superadmin === 1;
+
+        console.log('Login exitoso. Rol detectado:', role, 'isSuperAdmin:', isSuperAdmin);
 
         // Redirigir según el rol
-        if (role === 'admin') {
+        if (role === 'admin' || role === 'administrador' || isSuperAdmin) {
           this.router.navigate(['/admin']);
-        } else if (role === 'empleado') {
+        } else if (role === 'empleado' || role === 'employee') {
           this.router.navigate(['/empleado/perfil']);
         } else {
-          // fallback si no coincide con ningún rol conocido
-          this.router.navigate(['/']);
+          this.router.navigate(['/admin']);
         }
       },
       error: (err) => {

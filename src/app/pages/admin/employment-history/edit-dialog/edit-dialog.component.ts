@@ -3,6 +3,7 @@ import { Component, Input, OnInit, Output, EventEmitter, inject } from '@angular
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../../enviroments/enviroment';
 
 @Component({
   selector: 'app-edit-dialog',
@@ -47,7 +48,7 @@ export class EditDialogComponent implements OnInit {
       endDate: endDate === '' ? null : endDate
     };
 
-    this.http.patch(`https://backend-cootep.onrender.com/employment-history/${this.data.id}`, payload).subscribe({
+    this.http.patch(`${environment.apiUrl}/employment-history/${this.data.id}`, payload).subscribe({
       next: () => {
         alert('Historial actualizado correctamente.');
         this.onUpdated.emit();

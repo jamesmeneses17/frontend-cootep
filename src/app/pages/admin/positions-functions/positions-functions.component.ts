@@ -5,6 +5,7 @@ import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { FormsModule } from '@angular/forms';
 import { PositionFormComponent } from './position-form/position-form.component';
 import { FunctionFormComponent } from './function-form/function-form.component';
+import { environment } from '../../../../enviroments/enviroment';
 
 @Component({
   selector: 'app-positions-functions',
@@ -66,7 +67,7 @@ export class PositionsFunctionsComponent implements OnInit {
   // CRUD DE CARGOS
   // ----------------------------------------
   loadPositions(): void {
-    this.http.get<any[]>('https://backend-cootep.onrender.com/positions').subscribe({
+    this.http.get<any[]>(`${environment.apiUrl}/positions`).subscribe({
       next: data => {
         this.positions = data
           .map(pos => ({ ...pos, id: Number(pos.id) }))
@@ -112,7 +113,7 @@ export class PositionsFunctionsComponent implements OnInit {
 
   savePosition(data: any) {
     if (this.editing) {
-      this.http.patch(`https://backend-cootep.onrender.com/positions/${data.id}`, data).subscribe({
+      this.http.patch(`${environment.apiUrl}/positions/${data.id}`, data).subscribe({
         next: () => this.handleUpdated(),
         error: err => {
           console.error('Error al editar cargo:', err);
@@ -120,7 +121,7 @@ export class PositionsFunctionsComponent implements OnInit {
         },
       });
     } else {
-      this.http.post('https://backend-cootep.onrender.com/positions', data).subscribe({
+      this.http.post(`${environment.apiUrl}/positions`, data).subscribe({
         next: () => this.handleCreated(),
         error: err => {
           console.error('Error al guardar el cargo:', err);
@@ -133,7 +134,7 @@ export class PositionsFunctionsComponent implements OnInit {
   deletePosition(id: number): void {
     if (!confirm('¿Estás seguro de eliminar este cargo?')) return;
 
-    this.http.delete(`https://backend-cootep.onrender.com/positions/${id}`).subscribe({
+    this.http.delete(`${environment.apiUrl}/positions/${id}`).subscribe({
       next: () => {
         this.loadPositions();
       },
@@ -149,7 +150,7 @@ export class PositionsFunctionsComponent implements OnInit {
   // ----------------------------------------
 
   loadFunctions(): void {
-    this.http.get<any[]>('https://backend-cootep.onrender.com/functions').subscribe({
+    this.http.get<any[]>(`${environment.apiUrl}/functions`).subscribe({
       next: data => {
         this.functions = data
           .map(func => ({ ...func, id: Number(func.id) }))
@@ -165,7 +166,7 @@ export class PositionsFunctionsComponent implements OnInit {
   saveFunction(data: any): void {
     if (this.editingFunction && data.id) {
       // Modo edición
-      this.http.patch(`https://backend-cootep.onrender.com/functions/${data.id}`, data).subscribe({
+      this.http.patch(`${environment.apiUrl}/functions/${data.id}`, data).subscribe({
         next: () => {
           this.loadFunctions(); // Recarga funciones paginadas
           this.closeModal();
@@ -177,7 +178,7 @@ export class PositionsFunctionsComponent implements OnInit {
       });
     } else {
       // Modo creación
-      this.http.post('https://backend-cootep.onrender.com/functions', data).subscribe({
+      this.http.post(`${environment.apiUrl}/functions`, data).subscribe({
         next: () => {
           this.loadFunctions();
           this.closeModal();
@@ -194,7 +195,7 @@ export class PositionsFunctionsComponent implements OnInit {
   deleteFunction(id: number): void {
     if (!confirm('¿Estás seguro de eliminar esta función?')) return;
 
-    this.http.delete(`https://backend-cootep.onrender.com/functions/${id}`).subscribe({
+    this.http.delete(`${environment.apiUrl}/functions/${id}`).subscribe({
       next: () => this.loadFunctions(),
       error: err => {
         console.error('Error al eliminar función:', err);

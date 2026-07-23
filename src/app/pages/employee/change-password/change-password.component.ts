@@ -7,6 +7,7 @@ import { SidebarComponent } from '../../../components/shared/sidebar/sidebar.com
 import { HeaderComponent } from '../../../components/shared/header/header.component';
 import { FooterComponent } from '../../../components/shared/footer/footer.component';
 import { EmployeeService } from '../../../services/employee.service';
+import { environment } from '../../../../enviroments/enviroment';
 
 
 
@@ -57,7 +58,7 @@ onSubmit() {
     return;
   }
 
-  this.http.post('https://backend-cootep.onrender.com/auth/change-password', {
+  this.http.post(`${environment.apiUrl}/auth/change-password`, {
     currentPassword: this.formData.currentPassword,
     newPassword: this.formData.newPassword,
   })

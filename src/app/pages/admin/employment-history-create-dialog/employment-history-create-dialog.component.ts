@@ -2,6 +2,7 @@ import { Component, EventEmitter, OnInit, Output, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../../../enviroments/enviroment';
 
 @Component({
   selector: 'app-employment-history-create-dialog',
@@ -43,19 +44,19 @@ export class EmploymentHistoryCreateDialogComponent implements OnInit {
   }
 
   loadEmployees(): void {
-    this.http.get<{ data: any[] }>('https://backend-cootep.onrender.com/employees')
+    this.http.get<{ data: any[] }>(`${environment.apiUrl}/employees`)
       .subscribe(response => {
         this.employees = response.data;
       });
   }
 
   loadPositions(): void {
-    this.http.get<any[]>('https://backend-cootep.onrender.com/positions')
+    this.http.get<any[]>(`${environment.apiUrl}/positions`)
       .subscribe(data => this.positions = data);
   }
 
   loadContracts(): void {
-    this.http.get<any[]>('https://backend-cootep.onrender.com/contract-type')
+    this.http.get<any[]>(`${environment.apiUrl}/contract-type`)
       .subscribe(data => this.contracts = data);
   }
 
@@ -94,7 +95,7 @@ export class EmploymentHistoryCreateDialogComponent implements OnInit {
         : null
     };
 
-    this.http.post('https://backend-cootep.onrender.com/employment-history', payload)
+    this.http.post(`${environment.apiUrl}/employment-history`, payload)
       .subscribe({
         next: () => {
           alert('Historial laboral creado correctamente.');

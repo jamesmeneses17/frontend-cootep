@@ -7,6 +7,7 @@ import { EmploymentHistoryViewComponent } from '../employment-history-view/emplo
 import { EditDialogComponent } from './edit-dialog/edit-dialog.component';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import { FormsModule } from '@angular/forms';
+import { environment } from '../../../../enviroments/enviroment';
 
 @Component({
   selector: 'app-employment-history',
@@ -54,7 +55,7 @@ export class EmploymentHistoryComponent implements OnInit {
   }
 
   loadHistories(): void {
-    this.http.get<any[]>('https://backend-cootep.onrender.com/employment-history/admin/all').subscribe({
+    this.http.get<any[]>(`${environment.apiUrl}/employment-history/admin/all`).subscribe({
       next: data => {
         this.histories = data;
         this.applyFilters();
@@ -64,14 +65,14 @@ export class EmploymentHistoryComponent implements OnInit {
   }
 
   loadPositions(): void {
-    this.http.get<any[]>('https://backend-cootep.onrender.com/positions').subscribe({
+    this.http.get<any[]>(`${environment.apiUrl}/positions`).subscribe({
       next: data => this.positions = data,
       error: err => console.error('Error al cargar cargos', err)
     });
   }
 
   loadContracts(): void {
-    this.http.get<any[]>('https://backend-cootep.onrender.com/contract-type').subscribe({
+    this.http.get<any[]>(`${environment.apiUrl}/contract-type`).subscribe({
       next: data => this.contracts = data,
       error: err => console.error('Error al cargar contratos', err)
     });
@@ -139,7 +140,7 @@ export class EmploymentHistoryComponent implements OnInit {
 
   deleteHistory(id: number): void {
     if (confirm('¿Estás seguro de que deseas eliminar este historial laboral?')) {
-      this.http.delete(`https://backend-cootep.onrender.com/employment-history/${id}`).subscribe({
+      this.http.delete(`${environment.apiUrl}/employment-history/${id}`).subscribe({
         next: () => {
           // Remueve localmente el historial eliminado y actualiza los filtros y paginación
           this.histories = this.histories.filter(h => h.id !== id);

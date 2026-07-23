@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
+import { environment } from '../../enviroments/enviroment';
 
 @Injectable({ providedIn: 'root' })
 export class CertificateService {
-  private apiUrl = 'https://backend-cootep.onrender.com';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 

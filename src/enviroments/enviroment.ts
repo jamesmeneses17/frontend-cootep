@@ -1,4 +1,5 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://backend-cootep.onrender.com', // local
+  apiUrl: 'http://localhost:3000', // local
 };
+

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { AdminUserFormComponent } from './admin-user-form/admin-user-form.component';
+import { environment } from '../../../../enviroments/enviroment';
 
 @Component({
   selector: 'app-admin-user-list',
@@ -24,7 +25,7 @@ export class AdminUserListComponent implements OnInit {
   }
 
   loadProfile(): void {
-    this.http.get('https://backend-cootep.onrender.com/auth/profile').subscribe({
+    this.http.get(`${environment.apiUrl}/auth/profile`).subscribe({
       next: (data) => {
         console.log('Perfil cargado:', data);
         this.profile = data;
@@ -38,7 +39,7 @@ export class AdminUserListComponent implements OnInit {
   }
 
   loadAdminUsers(): void {
-    this.http.get<any[]>('https://backend-cootep.onrender.com/users/admins').subscribe({
+    this.http.get<any[]>(`${environment.apiUrl}/users/admins`).subscribe({
       next: (data) =>
         this.adminUsers = data.map((user) => ({
           ...user,
@@ -59,7 +60,7 @@ export class AdminUserListComponent implements OnInit {
       `¿Está seguro de quitar el rol de administrador a ${user.fullName}?`
     );
     if (confirmDowngrade) {
-      this.http.patch(`https://backend-cootep.onrender.com/users/${user.id}/downgrade`, {}).subscribe({
+      this.http.patch(`${environment.apiUrl}/users/${user.id}/downgrade`, {}).subscribe({
         next: () => this.loadAdminUsers(),
         error: (err) => console.error('Error cambiando rol del usuario', err),
       });
@@ -76,7 +77,7 @@ export class AdminUserListComponent implements OnInit {
 
   guardarNuevoAdmin(data: { employeeId: number; role: string }): void {
     const roleId = 1; // admin
-    this.http.patch(`https://backend-cootep.onrender.com/users/${data.employeeId}/role`, {
+    this.http.patch(`${environment.apiUrl}/users/${data.employeeId}/role`, {
       role_id: roleId,
     }).subscribe({
       next: () => {

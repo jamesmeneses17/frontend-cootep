@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpClient } from '@angular/common/http';
 import { debounceTime, distinctUntilChanged, Subject } from 'rxjs';
+import { environment } from '../../../../../enviroments/enviroment';
 
 @Component({
   selector: 'app-admin-user-form',
@@ -34,7 +35,7 @@ export class AdminUserFormComponent {
   buscarEmpleado(cedula: string) {
     if (!cedula) return;
     this.http
-      .get<any>(`https://backend-cootep.onrender.com/users/by-cedula/${cedula}`)
+      .get<any>(`${environment.apiUrl}/users/by-cedula/${cedula}`)
       .subscribe({
         next: (data) => (this.empleadoEncontrado = data),
         error: () => (this.empleadoEncontrado = null),

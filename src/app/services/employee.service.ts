@@ -3,11 +3,13 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 import { Employee } from '../interfaces/employee.interface';
 
+import { environment } from '../../enviroments/enviroment';
+
 @Injectable({
   providedIn: 'root',
 })
 export class EmployeeService {
-  private apiUrl = 'https://backend-cootep.onrender.com';
+  private apiUrl = environment.apiUrl;
 
   constructor(private http: HttpClient) { }
 
@@ -83,7 +85,7 @@ export class EmployeeService {
   }
 
   createFullEmployee(data: any) {
-    return this.http.post('https://backend-cootep.onrender.com/employees/full', data);
+    return this.http.post(`${this.apiUrl}/employees/full`, data);
   }
 
 

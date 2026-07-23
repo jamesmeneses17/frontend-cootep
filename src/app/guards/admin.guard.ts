@@ -15,7 +15,17 @@ export class AdminGuard implements CanActivate {
     const token = localStorage.getItem('access_token');
     if (!token) return this.router.parseUrl('/login');
 
-    const payload = JSON.parse(atob(token.split('.')[1]));
-    return payload.role === 'admin' || this.router.parseUrl('/empleado');
+    try {
+      const payload = JSON.parse(atob(token.split('.')[1]));
+      const role = (payload.role || '').toLowerCase();
+      const isSuperAdmin = payload.is_superadmin === true || payload.is_superadmin === 1;
+
+      if (role === 'admin' || role === 'administrador' || isSuperAdmin) {
+        return true;
+      }
+      return this.router.parseUrl('/empleado/perfil');
+    } catch (e) {
+      return this.router.parseUrl('/login');
+    }
   }
 }
